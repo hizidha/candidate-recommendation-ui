@@ -1,0 +1,29 @@
+# Ignore virtual environment
+venv/
+
+# Ignore pipenv
+Pipfile
+Pipfile.lock
+
+# Ignore Flask-related files
+instance/
+.webassets-cache/
+
+# Ignore NumPy-related files
+*.pyc
+__pycache__/
+.npy/
+
+# Ignore Pandas-related files
+*.pyc
+__pycache__/
+*.csv
+
+# Ignore scikit-learn-related files
+*.pyc
+__pycache__/
+*.joblib
+
+# Ignore requests-related files
+*.pyc
+__pycache__/
