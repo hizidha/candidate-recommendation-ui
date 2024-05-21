@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://spil.co.id/spil_logo.svg">
+    <link rel="shortcut icon" href="https://spil.co.id/spil_logo.svg" type="image/x-icon">
+    <title>Add Hiring Order | HRMS</title>
+
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Data Table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css">
+    <!-- Select 2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        .select2-selection,
+        .select2-selection__choice {
+            font-size: 12px !important;
+        }
+
+        .select2-selection {
+            font-size: 13px !important;
+            padding-top: 4px !important;
+            padding-left: 2px !important;
+        }
+
+        .select2-selection__choice,
+        .select2-selection__choice__remove {
+            color: white !important;
+            background-color: rgb(202, 8, 8) !important;
+        }
+
+        .separator {
+            width: 8.25%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .separatorHrf {
+            width: 8.25%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        .pFormAdds {
+            font-size: 15px !important;
+            margin-bottom: 4px !important;
+        }
+
+        .pForm1 {
+            font-size: 15px !important;
+            font-weight: 500 !important;
+        }
+
+        .pMar2 {
+            margin-bottom: 13px !important;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .btn-actionView {
+            font-size: 12px;
+        }
+
+        table {
+            table-layout: auto;
+        }
+
+        th,
+        td {
+            font-size: 12px;
+        }
+
+        th {
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+
+        td {
+            font-weight: 500;
+            vertical-align: top !important;
+        }
+
+        .detailP p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .a-table,
+        .a-table:hover,
+        .a-table:active {
+            text-decoration: underline;
+        }
+
+        .btn-users:hover,
+        .btn-users:active {
+            background-color: white !important;
+            color: black !important;
+        }
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+
+        .nav-2,
+        .activated {
+            margin: 0;
+            padding: 7px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            min-width: 125px;
+            text-align: center;
+            padding-left: auto;
+            padding-right: auto;
+            border-radius: 3.65px;
+            background-color: white;
+            border-bottom: solid 3px rgb(141, 141, 141);
+        }
+
+        .activated {
+            font-weight: 700;
+            color: rgb(202, 8, 8);
+            border-bottom: solid 3px rgb(202, 8, 8);
+        }
+
+        .actived-nav,
+        .actived-nav:hover .actived-nav>p,
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: rgb(202, 8, 8) !important;
+            color: white !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 50% !important;
+            bottom: 50% !important;
+            height: auto !important;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body class="sidebar-mini layout-navbar-fixed layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light"
+            style="background-color: rgb(202, 8, 8);">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu">
+                        <i class="fas fa-bars" style="color: white"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto" style="padding-right: 1.75rem;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false" style="padding-top: 2px;">
+                        <div class="flex row">
+                            <img src="https://th.bing.com/th/id/OIP.0A1RSeVHV4YfoDGR2jUvHwAAAA?rs=1&pid=ImgDetMain"
+                                alt="profile_users"
+                                style="height: 35px; border-radius: 50%; margin-right: 8px; margin-top: 1px;">
+                            <div style="color: white; margin: 0; padding: 0;">
+                                <h6 style="margin: 0; padding: 0; font-size: 16px;"><strong>Chloe Haly</strong></h6>
+                                <p style="margin: 0; padding: 0; font-size: 12px;">Artificial Intelligence PT SPIL</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu dropdown-menu-right"
+                        style="left: inherit; right: 0px; margin: 0; padding: 0;">
+                        <a href="https://www.spil.co.id/" target="_blank" class="dropdown-item btn-users"
+                            style="cursor: pointer;">
+                            <div class="flex row" style="margin: 8px 2px;">
+                                <i class="fa fa-sign-out" style="padding: 4px 20px 0 6px;"></i>
+                                <span>Logout</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-light-primary elevation-4">
+            <!-- Brand Logo -->
+            <a class="brand-link" style="background-color: rgb(202, 8, 8); color: white;">
+                <img src="https://www.spil.co.id/img/spil_logo.581f4306.svg" alt="logo-spil"
+                    class="brand-image img-circle" style="padding-left: 0; margin-left: 10px;">
+                <span class="font-weight-bold" style="margin-left: 16px; color: white;">SPIL</span>HRMS
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-3">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false" style="margin: 0; padding: 0;">
+                        <li class="nav-item">
+                            <a href="https://spil.co.id/" class="nav-link"
+                                style="margin: 0; padding-left: 9.5px;">
+                                <i class="nav-icon"><img src="https://www.spil.co.id/img/spil_logo.581f4306.svg"
+                                        alt="logo-spil" style="width: 34px;"></i>
+                                <p class="font-weight-bold" style="font-size: 10pt; padding-left: 16px;">Connecting
+                                    Islands</p>
+                            </a>
+                        </li>
+                        <!-- Search Form -->
+                        <div class="form-inline mt-2 mb-2">
+                            <form class="form-inline">
+                                <div class="input-group">
+                                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                                        aria-label="Search" id="sidebar-search-input">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sidebar" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Sub-menu should be placed here -->
+                        <li class="nav-item side-item" style="cursor: pointer;">
+                            <a class="nav-link" id="recruitment-menu">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p style="cursor: pointer;">
+                                    Recruitment
+                                    <i id="angle-icon" class="right fas fa-angle-down"></i>
+                                </p>
+                            </a>
+                            <ul id="recruitment-submenu" class="nav nav-treeview">
+                                <li class="nav-item side-item" style="cursor: pointer;">
+                                    <a class="nav-link" id="transaction-menu">
+                                        <i class="nav-icon fas fa-bar-chart"></i>
+                                        <p style="cursor: pointer;">
+                                            Transaction
+                                            <i id="angle-icon2" class="right fas fa-angle-down"></i>
+                                        </p>
+                                    </a>
+                                    <ul id="transaction-submenu" class="nav nav-treeview">
+                                        <li class="nav-item side-item">
+                                            <a href='#' class="nav-link">
+                                                <i class="fa fa-database nav-icon"></i>
+                                                <p>Buffer Stock</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item side-item">
+                                            <a href='#' class="nav-link actived-nav">
+                                                <i class="nav-icon fas fa-briefcase"></i>
+                                                <p>Online Applicant</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content" style="padding: 4.5vh 2vh 4vh 2vh;">
+                <div class="container-fluid">
+                    <!-- Your content goes here -->
+                    <h2 class="font-weight-bold pb-3 ml-2">Job Posting & Online Applicant</h2>
+
+                    <!-- Content Table -->
+                    <div class="row p-2 mb-2">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div style="padding: 1vh 0 0 1vh;">
+                                        <div class="card-title" style="display: inline-flex; width: 100%;">
+                                            <a href='#' class="btn btn-s" style="background-color: rgb(223, 23, 23);
+                                                        color: white; height: 38px;">
+                                                <i class="fas fa-home"></i>
+                                            </a>
+                                            <p class="font-weight-bold pl-4"
+                                                style="font-size: 22px; margin-top: 2.5px; margin-bottom: 7.5px;">
+                                                Add Hiring Order
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="padding-top: 30px;">
+                                    <table style="width: 100% !important;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 16%">
+                                                    <p class="font-weight-bold pFormAdds">Posting Type</p>
+                                                </td>
+                                                <td style="width: 3%">
+                                                    <p class="font-weight-bold pFormAdds">:</p>
+                                                </td>
+                                                <td style="width: 81%" class="row">
+                                                    <div class="row">
+                                                        <input type="radio" class="pMar2" id="typePosJobPosting"
+                                                            value="Job Posting" name="typePos" checked
+                                                            style="margin-left: 14px; cursor: pointer;">
+                                                        <label class="pl-2 pForm1" for="typePosJobPosting"
+                                                            style="margin-right: 140px; cursor: pointer; padding-bottom: 6px;">
+                                                            Job Posting</label>
+                                                    </div>
+                                                    <div class="row">
+                                                        <input type="radio" class="pMar2" id="typePosEvent"
+                                                            value="Event" name="typePos">
+                                                        <label for="typePosEvent" class="pl-2 pForm1"
+                                                            style="cursor: pointer;">Event
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div id="show-JobPosting">
+                                        <table style="width: 100% !important;">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <h5 class="font-weight-bold"
+                                                            style="margin: 20px 0 7px 0; padding: 0; font-size: 18px;">
+                                                            Selection Model</h5>
+                                                        <hr
+                                                            style="margin: 0 0 20px 0; padding: 0; height: 1px; background-color: rgb(190, 190, 190);">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%">
+                                                        <p class="font-weight-bold pFormAdds">Pathway</p>
+                                                    </td>
+                                                    <td style="width: 3%">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%" class="row">
+                                                        <div class="row">
+                                                            <input type="radio" class="pMar2" id="pathwayTAFill"
+                                                                value="Talent Acquisition Filled" name="pathway"
+                                                                style="margin-left: 14px; cursor: pointer;">
+                                                            <label class="pl-2 pForm1" for="pathwayTAFill"
+                                                                style="margin-right: 63.25px; cursor: pointer; padding-bottom: 6px;">
+                                                                Talent Acquisition Filled</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <input type="radio" class="pMar2" id="pathwayAIGen" checked
+                                                                value="AI Generate" name="pathway">
+                                                            <label for="pathwayAIGen" class="pl-2 pForm1"
+                                                                style="cursor: pointer;">AI Generate
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%">
+                                                        <p class="font-weight-bold pFormAdds">Source</p>
+                                                    </td>
+                                                    <td style="width: 3%">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%" class="row" style="padding-left: 20px;">
+                                                        <div class="row">
+                                                            <input type="radio" class="pMar2" id="sourcesDocFPPK"
+                                                                value="Approved FPPK Document" name="sources" checked
+                                                                style="margin-left: 14px;">
+                                                            <label class="pl-2 pForm1" for="sourcesDocFPPK"
+                                                                style="margin-right: 47.5px; margin-bottom: 14px ;cursor: pointer;">
+                                                                Approved FPPK Document</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <input type="radio" class="pMar2" id="sourcesTACus"
+                                                                value="Talent Acquisition Custom" name="sources">
+                                                            <label for="sourcesTACus" class="pl-2 pForm1"
+                                                                style="cursor: pointer;">Talent
+                                                                Acquisition Custom</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <h5 class="font-weight-bold"
+                                                            style="margin: 20px 0 7px 0; padding: 0; font-size: 18px;">
+                                                            Details Setting</h5>
+                                                        <hr
+                                                            style="margin: 0 0 24px 0; padding: 0; height: 1.25px; background-color: rgb(190, 190, 190);">
+                                                    </td>
+                                                </tr>
+                                                <tr id="showNoDocFPPK">
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">No Document</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 15px !important;">
+                                                        <select class="form-control form-control-sm"
+                                                            style="width: 71.5%;" id="docFPPK">
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Name</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 15px !important;">
+                                                        <input class="form-control form-control-sm" type="text"
+                                                            style="width: 71.5%;" id="positionName"
+                                                            placeholder="Position Name" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Job Title</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 15px !important;">
+                                                        <select class="form-control form-control-sm"
+                                                            style="width: 71.5%;" id="JobTitle">
+                                                            <option selected hidden>Auto</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Placement</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 15px !important;">
+                                                        <select class="form-control form-control-sm"
+                                                            style="width: 71.5%;" id="placementJob">
+                                                            <option selected hidden>Auto</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Description</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 20px !important;">
+                                                        <textarea class="form-control form-control-sm"
+                                                            style="width: 71.5%;" id="description" placeholder="Auto"
+                                                            rows="10"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Requirement</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 20px !important;">
+                                                        <textarea class="form-control form-control-sm"
+                                                            style="width: 71.5%;" id="requirement" placeholder="Auto"
+                                                            rows="10"></textarea>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Job Available</p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 6px !important;" class="row">
+                                                        <input class="form-control form-control-sm"
+                                                            style="width: 40%; margin-left: 8px;" type="date"
+                                                            id="tgl-start" placeholder="Start Date">
+                                                        <p class="separator">-</p>
+                                                        <input class="form-control form-control-sm" style="width: 40%;"
+                                                            type="date" id="tgl-end" placeholder="End Date">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Preview in Linkedin
+                                                        </p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 16px !important;">
+                                                        <div class="form-check" style="margin-top: 4px !important;">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="previewLinkedin">
+                                                            <label class="form-check-label"
+                                                                style="font-size: 14px; padding-left: 4px !important;"
+                                                                for="previewLinkedin">Check for Preview</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 16%; padding-top: 6px !important;">
+                                                        <p class="font-weight-bold pFormAdds">Status Job Posting
+                                                        </p>
+                                                    </td>
+                                                    <td style="width: 3%; padding-top: 4px !important;">
+                                                        <p class="font-weight-bold pFormAdds">:</p>
+                                                    </td>
+                                                    <td style="width: 81%; padding-bottom: 46px !important;">
+                                                        <div class="form-check" style="margin-top: 4px !important;">
+                                                            <input class="form-check-input" type="checkbox" checked
+                                                                id="statusHiringOrder">
+                                                            <label class="form-check-label"
+                                                                style="font-size: 14px; padding-left: 4px !important;"
+                                                                for="statusHiringOrder"><b>Active ?</b></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div id="showPathTAFilled">
+                                            <table style="width: 100% !important;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h5 class="font-weight-bold"
+                                                                style="margin: 14px 0 7px 0; padding: 0; font-size: 18px;">
+                                                                Scoring Percentage</h5>
+                                                            <hr
+                                                                style="margin: 0; padding: 0; height: 1px; background-color: rgb(190, 190, 190);">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 20px !important;"></td>
+                                                        <td style="width: 3%; padding-top: 20px !important"></td>
+                                                        <td style="width: 30%; padding-left: 114px !important; padding-bottom: 8px !important; 
+                                                            padding-top: 20px !important">
+                                                            <p class="font-weight-bold pFormAdds">Parameter</p>
+                                                        </td>
+                                                        <td colspan="2"
+                                                            style="width: 51%; padding-left: 20px !important; 
+                                                            padding-bottom: 8px !important; padding-top: 20px !important">
+                                                            <p class="font-weight-bold pFormAdds">Score</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Age</p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 8px !important;">
+                                                            <div class="row">
+                                                                <input class="form-control form-control-sm"
+                                                                    style="margin-left: 8px; width: 30%;" type="number"
+                                                                    id="poin-age-start" placeholder="min" min=0 max=100>
+                                                                <p class="separatorHrf"
+                                                                    style="width: 14%; font-size: 16px; padding-top: 2px;">
+                                                                    s.d.</p>
+                                                                <input class="form-control form-control-sm"
+                                                                    type="number" id="poin-age-end" min=0 max=100
+                                                                    placeholder="max" style="width: 30%;">
+                                                                <p class="separatorHrf"
+                                                                    style="width: 8%; font-size: 16px; padding-top: 2px; padding-left: 8px !important;">
+                                                                    th</p>
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-age-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Gender</p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 18px !important;">
+                                                            <select class="form-control form-control-sm"
+                                                                style="width: 86%;" id="poin-gender">
+                                                                <option selected hidden>Gender</option>
+                                                                <option value="male">Male</option>
+                                                                <option value="female">Female</option>
+                                                                <option value="free">Free</option>
+                                                            </select>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-gender-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Marital Status</p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 18px !important;">
+                                                            <select class="form-control form-control-sm"
+                                                                style="width: 86%;" id="poin-marital">
+                                                                <option selected hidden>Marital Status</option>
+                                                                <option value="single">Single</option>
+                                                                <option value="married">Married</option>
+                                                                <option value="widower">Widower</option>
+                                                            </select>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-marital-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Education Level
+                                                            </p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 8px !important;">
+                                                            <div class="row">
+                                                                <select class="form-control form-control-sm"
+                                                                    style="margin-left: 8px; width: 32%;"
+                                                                    id="poin-edulevel-start">
+                                                                    <option selected hidden>min</option>
+                                                                    <option value="SD">SD</option>
+                                                                    <option value="SMP">SMP</option>
+                                                                    <option value="SMA/SMK">SMA/SMK</option>
+                                                                    <option value="D1">D1</option>
+                                                                    <option value="D2">D2</option>
+                                                                    <option value="D3">D3</option>
+                                                                    <option value="D4">D4</option>
+                                                                    <option value="S1">S1</option>
+                                                                    <option value="S1/D4">S1/D4</option>
+                                                                    <option value="S2">S2</option>
+                                                                    <option value="S3">S3</option>
+                                                                </select>
+                                                                <p class="separatorHrf"
+                                                                    style="width: 18%; font-size: 16px; padding-top: 2px;">
+                                                                    s.d.</p>
+                                                                <select class="form-control form-control-sm"
+                                                                    id="poin-edulevel-end" style="width: 32%;">
+                                                                    <option selected hidden>max</option>
+                                                                    <option value="SD">SD</option>
+                                                                    <option value="SMP">SMP</option>
+                                                                    <option value="SMA/SMK">SMA/SMK</option>
+                                                                    <option value="D1">D1</option>
+                                                                    <option value="D2">D2</option>
+                                                                    <option value="D3">D3</option>
+                                                                    <option value="D4">D4</option>
+                                                                    <option value="S1">S1</option>
+                                                                    <option value="S1/D4">S1/D4</option>
+                                                                    <option value="S2">S2</option>
+                                                                    <option value="S3">S3</option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-edulevel-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Study Major
+                                                            </p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 16px !important;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="width: 85.5% !important;" type="text"
+                                                                id="poin-studymajor"
+                                                                placeholder="Teknik Komputer, Psikologi, etc.">
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-studymajor-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">GPA</p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 8px !important;">
+                                                            <div class="row">
+                                                                <input class="form-control form-control-sm"
+                                                                    style="margin-left: 8px; width: 32%;" type="number"
+                                                                    id="poin-ipk-start" placeholder="min" min="0"
+                                                                    max="4" step="0.01">
+                                                                <p class="separatorHrf"
+                                                                    style="width: 18%; font-size: 16px; padding-top: 2px;">
+                                                                    s.d.</p>
+                                                                <input class="form-control form-control-sm"
+                                                                    type="number" id="poin-ipk-end" placeholder="max"
+                                                                    style="width: 32%;" min="0" max="4" step="0.01">
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-ipk-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Experience</p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 8px !important;">
+                                                            <div class="row">
+                                                                <input class="form-control form-control-sm"
+                                                                    style="margin-left: 8px; width: 32%;" type="number"
+                                                                    id="poin-experience-start" placeholder="min" min=0>
+                                                                <p class="separatorHrf"
+                                                                    style="width: 18%; font-size: 16px; padding-top: 2px;">
+                                                                    s.d.</p>
+                                                                <input class="form-control form-control-sm"
+                                                                    type="number" id="poin-experience-end"
+                                                                    placeholder="max" style="width: 32%;" min=0>
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-experience-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 6px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Expected Salary
+                                                            </p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 4px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td style="width: 30%; padding-bottom: 8px !important;">
+                                                            <div class="row">
+                                                                <input class="form-control form-control-sm"
+                                                                    style="margin-left: 8px; width: 32%;" type="number"
+                                                                    id="poin-salary-start" placeholder="min" min=0>
+                                                                <p class="separatorHrf"
+                                                                    style="width: 18%; font-size: 16px; padding-top: 2px;">
+                                                                    s.d.</p>
+                                                                <input class="form-control form-control-sm"
+                                                                    type="number" id="poin-salary-end" placeholder="max"
+                                                                    style="width: 32%;" min=0>
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="2" style="width: 51%;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 12%;" type="number"
+                                                                id="poin-salary-score" placeholder="" min=0 max=100>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" style="width: 49%;">
+                                                            <p class="font-weight-bold pFormAdds"
+                                                                style="padding-left: 428px; padding-top: 4px;">
+                                                                Total Score
+                                                            </p>
+                                                        </td>
+                                                        <td style="width: 10%; padding-bottom: 40px !important;">
+                                                            <input class="form-control form-control-sm"
+                                                                style="margin-left: 8px; width: 50%;" type="number"
+                                                                id="poin-total-score" placeholder="" disabled>
+                                                        </td>
+                                                        <td style="width: 31%;">
+                                                            <p id="warning-message"
+                                                                style="color: red; font-size: 14px; padding: 6px 0 0 0 !important;">
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="showPathAIGen">
+                                            <table style="width: 100% !important;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <h5 class="font-weight-bold"
+                                                                style="margin: 14px 0 7px 0; padding: 0; font-size: 18px;">
+                                                                Scoring Percentage</h5>
+                                                            <hr
+                                                                style="margin: 0; padding: 0; height: 1px; background-color: rgb(190, 190, 190);">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 16%; padding-top: 36px !important;">
+                                                            <p class="font-weight-bold pFormAdds">Role Model Name
+                                                            </p>
+                                                        </td>
+                                                        <td style="width: 3%; padding-top: 37px !important;">
+                                                            <p class="font-weight-bold pFormAdds">:</p>
+                                                        </td>
+                                                        <td
+                                                            style="width: 81%; padding-top: 28px !important; padding-bottom: 30px !important;">
+                                                            <select class="form-control form-control-sm"
+                                                                style="width: 71%;" id="getDummyFromEmployee">
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div style="width: 80% !important; text-align: center !important; 
+                                                        margin: 0 auto 45px auto !important;">
+                                                <table id="mainTableDataAIGen" style="width: 100% !important;"
+                                                    class="border">
+                                                    <thead
+                                                        style="background-color: rgb(202, 8, 8) !important; color: white !important;">
+                                                        <tr>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    No</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Full Name</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Age</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Gender</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Marital Status</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Education Level</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Study Major</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Experience</p>
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tableDataAIGen">
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="show-Event">
+                                        <table style="width: 100% !important;">
+                                            <tr>
+                                                <td style="width: 16%; padding-top: 6px !important;">
+                                                    <p class="font-weight-bold pFormAdds">Name</p>
+                                                </td>
+                                                <td style="width: 3%; padding-top: 4px !important;">
+                                                    <p class="font-weight-bold pFormAdds">:</p>
+                                                </td>
+                                                <td style="width: 81%; padding-bottom: 15px !important;">
+                                                    <input class="form-control form-control-sm" type="text"
+                                                        style="width: 71.5%;" id="eventName" placeholder="Event Name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 16%; padding-top: 6px !important;">
+                                                    <p class="font-weight-bold pFormAdds">Placement</p>
+                                                </td>
+                                                <td style="width: 3%; padding-top: 4px !important;">
+                                                    <p class="font-weight-bold pFormAdds">:</p>
+                                                </td>
+                                                <td style="width: 81%; padding-bottom: 15px !important;">
+                                                    <input class="form-control form-control-sm" type="text"
+                                                        style="width: 71.5%;" id="placement-event"
+                                                        placeholder="Placement" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 16%; padding-top: 6px !important;">
+                                                    <p class="font-weight-bold pFormAdds">Description</p>
+                                                </td>
+                                                <td style="width: 3%; padding-top: 4px !important;">
+                                                    <p class="font-weight-bold pFormAdds">:</p>
+                                                </td>
+                                                <td style="width: 81%; padding-bottom: 20px !important;">
+                                                    <textarea class="form-control form-control-sm" style="width: 71.5%;"
+                                                        id="description-event" placeholder="Description"
+                                                        rows="6"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 16%; padding-top: 6px !important;">
+                                                    <p class="font-weight-bold pFormAdds">Event Period</p>
+                                                </td>
+                                                <td style="width: 3%; padding-top: 4px !important;">
+                                                    <p class="font-weight-bold pFormAdds">:</p>
+                                                </td>
+                                                <td style="width: 81%; padding-bottom: 8px !important;" class="row">
+                                                    <input class="form-control form-control-sm" style="width: 40%; 
+                                                        margin-left: 8px;" type="date" id="tgl-start-event"
+                                                        placeholder="Start Date">
+                                                    <p class="separator">-</p>
+                                                    <input class="form-control form-control-sm" style="width: 40%;"
+                                                        type="date" id="tgl-end-event" placeholder="End Date">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 16%; padding-top: 6px !important;">
+                                                    <p class="font-weight-bold pFormAdds">Status Event
+                                                    </p>
+                                                </td>
+                                                <td style="width: 3%; padding-top: 4px !important;">
+                                                    <p class="font-weight-bold pFormAdds">:</p>
+                                                </td>
+                                                <td style="width: 81%; padding-bottom: 44px !important;">
+                                                    <div class="form-check" style="margin-top: 4px !important;">
+                                                        <input class="form-check-input" type="checkbox" id="statusEvent"
+                                                            checked>
+                                                        <label class="form-check-label"
+                                                            style="font-size: 14px; padding-left: 4px !important;"
+                                                            for="statusEvent"><b>Active ?</b></label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-end">
+                                    <a class="btn btn-danger mr-2" href='<?!=url?>?page=transaction'
+                                        style="padding: 4px 0 4px 0; width: 128px;">
+                                        Cancel</a>
+                                    <button id="btnAdd" class="btn btn-sm btn-primary"
+                                        style="padding: 4px 0 4px 0; width: 128px; font-size: 16px !important;">
+                                        Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / .Content Table -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Modal Success Add -->
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+            aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Congratulation!</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Data Hiring Order Added Successfully.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="<?!=url?>?page=transaction" class="btn btn-danger mr-2"
+                            style="padding: 5.5px 0; width: 145px;">
+                            Back to Activity
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- Default to the left -->
+            <span style="color: black; font-size: 15px;">
+                <a href="https://spil.co.id/" style="color:blue;">PT Salam Pasifik Indonesia Lines</a> -
+                Crafted by <strong>HRIS Intern 2024</strong>
+            </span>
+            <!-- To the right -->
+            <strong class="float-right d-none d-sm-inline">
+                v1.0.0
+            </strong>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Data Table -->
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#show-Event").hide();
+            $("#showPathTAFilled").hide();
+
+            $("input[name='typePos']").change(function () {
+                if ($("#typePosJobPosting").is(":checked")) {
+                    $("#show-Event").hide();
+                    $("#show-JobPosting").show();
+                } else {
+                    $("#show-JobPosting").hide();
+                    $("#show-Event").show();
+                }
+            });
+
+            $("input[name='pathway']").change(function () {
+                if ($("#show-JobPosting").is(":visible")) {
+                    if ($("#pathwayTAFill").is(":checked")) {
+                        $("#showPathAIGen").hide();
+                        $("#showPathTAFilled").show();
+
+                    } else if ($("#pathwayAIGen").is(":checked")) {
+                        $('#tableDataAIGen').html("");
+                        $('#getDummyFromEmployee').val(null).trigger('change');
+
+                        $("#showPathTAFilled").hide();
+                        $("#showPathAIGen").show();
+                    }
+                }
+            });
+
+            // Input Doc FPPK
+            $("input[name='sources']").change(function () {
+                if ($("#show-JobPosting").is(":visible")) {
+                    if ($("#sourcesDocFPPK").is(":checked")) {
+                        $("#docFPPK").append($("<option>").text("No Document FPPK").val("Auto").prop("hidden", true).prop("selected", true));
+
+                        $("#JobTitle").html("");
+                        $("#JobTitle").prop("disabled", false);
+                        $("#JobTitle").append($("<option>").text("Auto").val("Auto").prop("hidden", true));
+
+                        $("#placementJob").html("");
+                        $("#placementJob").append($("<option>").text("Auto").val("Auto").prop("hidden", true));
+
+                        $("#description").val("");
+                        $("#description").text("Auto");
+
+                        $("#requirement").val("");
+                        $("#requirement").text("Auto");
+
+                        $("#showNoDocFPPK").show();
+                    } else {
+                        $("#JobTitle").html("");
+                        $("#JobTitle").prop("disabled", false);
+                        $("#JobTitle").append($("<option>").text("Job Title (by Organizational Structure)").val("Auto").prop("hidden", true));
+
+                        $("#placementJob").html("");
+                        $("#placementJob").append($("<option>").text("Placement").val("Auto").prop("hidden", true));
+
+                        $("#description").val("");
+                        $("#description").text("Auto");
+
+                        $("#requirement").val("");
+                        $("#requirement").text("Auto");
+
+                        $("#showNoDocFPPK").hide();
+                    }
+                }
+            });
+
+            function hitungTotalScore() {
+                var totalScore = 0;
+                totalScore += parseInt($("#poin-age-score").val()) || 0;
+                totalScore += parseInt($("#poin-gender-score").val()) || 0;
+                totalScore += parseInt($("#poin-marital-score").val()) || 0;
+                totalScore += parseInt($("#poin-edulevel-score").val()) || 0;
+                totalScore += parseInt($("#poin-studymajor-score").val()) || 0;
+                totalScore += parseInt($("#poin-ipk-score").val()) || 0;
+                totalScore += parseInt($("#poin-experience-score").val()) || 0;
+                totalScore += parseInt($("#poin-salary-score").val()) || 0;
+
+                $("#poin-total-score").val(totalScore);
+                if (totalScore < 0 || totalScore > 100) {
+                    $("#warning-message").text("Total score harus berada di antara 0 dan 100!");
+                    $("#btnAdd").prop("disabled", true).removeClass("btn-primary").addClass("btn-secondary");
+                } else {
+                    $("#btnAdd").prop("disabled", false).removeClass("btn-secondary").addClass("btn-primary");
+                    $("#warning-message").text("");
+                }
+            }
+            $("input[type='number']").on("input", hitungTotalScore);
+        });
+    </script>
+
+
+    <!-- <script>
+        $(document).ready(function () {
+            let dataHiringOrder = []
+            google.script.run.withSuccessHandler(function (data) {
+                dataHiringOrder = data
+                console.log("dataHiringOrder:", dataHiringOrder)
+                console.log("dataHiringOrder.length", dataHiringOrder.length)
+            }).getDataHiringOrder()
+
+            let scoringData = []
+            google.script.run.withSuccessHandler(function (data) {
+                scoringData = data
+                console.log("scoringData", scoringData)
+                console.log("scoringData.length", scoringData.length)
+            }).getScoringData()
+            // Check Boxes
+
+            // Select 2 for Role Model Data
+            google.script.run.withSuccessHandler(function (dataAll) {
+                var data = dataAll
+
+                var dataSearch = data.map(function (item) {
+                    var columns = item.text.split(', ');
+                    return { id: item.id, text: columns[0] + ' - ' + columns[1] };
+                });
+
+                $('#getDummyFromEmployee').select2({
+                    data: dataSearch,
+                    tags: true,
+                    multiple: true,
+                    minimumInputLength: 1,
+                    placeholder: "Type in and Select NIK / Full Name",
+                });
+
+                $('#mainTableDataAIGen').DataTable({
+                    "searching": false,
+                    "lengthChange": false,
+                    "paging": false,
+                    "info": false,
+                });
+
+                $('#getDummyFromEmployee').change(function () {
+                    var selectedOptions = $(this).val();
+                    var tableData = "";
+
+                    for (var i = 0; i < selectedOptions.length; i++) {
+                        var selectedOption = selectedOptions[i];
+                        var selectedItem = data.find(function (item) {
+                            return item.id == selectedOption;
+                        });
+                        tableData += "<tr>";
+                        tableData += "<td>" + (i + 1) + "</td>"; // Nomor urut
+                        var columns = selectedItem.text.split(', ');
+                        for (var j = 1; j < columns.length; j++) {
+                            if (j == 1 || j == 6) {
+                                tableData += "<td style='text-align: justify !important;'>" + columns[j] + "</td>";
+                            } else {
+                                tableData += "<td style='text-align: center !important;'>" + columns[j] + "</td>";
+                            }
+                        }
+                        tableData += "</tr>";
+                    }
+                    $('#tableDataAIGen').html(tableData);
+                });
+            }).getDataCandidate()
+
+
+            // Select for No Doc FPPK
+            google.script.run.withSuccessHandler(function (htmlindex) {
+                document.getElementById('docFPPK').innerHTML = htmlindex;
+            }).displayDataNoDocFPPK();
+
+            // Approved FPPK Document Checked
+            // No Doc FPPK changed
+            $('#docFPPK').change(function () {
+                google.script.run.withSuccessHandler(function (data) {
+                    data[0] = data[0][0]
+                    dataDocFPPK = data
+                    console.log(data)
+
+                    // JobTitle
+                    titleArr = []
+                    for (let i = 0; i < data[1].length; i++) {
+                        titleArr.push(data[1][i][1])
+                    }
+
+                    titleOptions = ""
+                    for (let i = 0; i < titleArr.length; i++) {
+                        titleOptions += `<option value="${i + 1}">${titleArr[i]}</option>`
+                    }
+                    $('#JobTitle').html(titleOptions)
+
+                    for (let i = 0; i < data[1].length; i++) {
+                        if (data[1][i][1] == data[0][3]) {
+                            $('#JobTitle').val(data[1][i][0])
+                        }
+                    }
+                    // Job Title
+
+                    // Placement
+                    placementOptions = ""
+                    placementArr = data[0][8].split(", ")
+                    for (let i = 0; i < placementArr.length; i++) {
+                        placementOptions += `<option value="${placementArr[i]}">${placementArr[i]}</option>`
+                    }
+                    $('#placementJob').html(placementOptions)
+
+                    $('#placementJob').val(data[0][5])
+                    // Placement
+
+                    $('#description').val(data[0][6])
+                    $('#requirement').val(data[0][7])
+                }).getDataFPPK($('#docFPPK').val())
+            })
+            // No Doc FPPK changed
+            // Approved FPPK Document Checked
+
+            // Talent Acquisition Custom Checked
+            let dataJobTitle = []
+            let titleArr = []
+            let placementArr = []
+            $('#sourcesTACus').change(function () {
+                google.script.run.withSuccessHandler(function (data) {
+                    dataJobTitle = data
+                    console.log(dataJobTitle)
+
+                    titleOptions = ""
+                    for (let i = 0; i < dataJobTitle.length; i++) {
+                        titleOptions = document.createElement("option")
+                        titleOptions.value = dataJobTitle[i][0]
+                        titleOptions.text = dataJobTitle[i][1]
+                        $("#JobTitle").append(titleOptions)
+                    }
+
+                }).getDataSO()
+            })
+
+            $("#JobTitle").change(function () {
+                let id = this.value
+                console.log(id)
+                if (dataJobTitle.length == 0) {
+                    google.script.run.withSuccessHandler(function (data) {
+                        dataJobTitle = data
+                        console.log(data)
+                        for (let i = 0; i < data.length; i++) {
+                            if (id == data[i][0]) {
+                                placementArr = data[i][6].split(", ")
+
+                                placementOptions = ""
+                                for (let i = 0; i < placementArr.length; i++) {
+                                    placementOptions += `<option value="${placementArr[i]}">${placementArr[i]}</option>`
+                                }
+                                $("#placementJob").html(placementOptions)
+
+                                $("#placementJob").val(data[i][3])
+                                $("#description").val(data[i][4])
+                                $("#requirement").val(data[i][5])
+                            }
+                        }
+                    }).getDataSO()
+                } else {
+                    data = dataJobTitle
+                    console.log(data)
+                    for (let i = 0; i < data.length; i++) {
+                        if (id == data[i][0]) {
+                            placementArr = data[i][6].split(", ")
+
+                            placementOptions = ""
+                            for (let i = 0; i < placementArr.length; i++) {
+                                placementOptions += `<option value="${placementArr[i]}">${placementArr[i]}</option>`
+                            }
+                            $("#placementJob").html(placementOptions)
+
+                            $("#placementJob").val(data[i][3])
+                            $("#description").val(data[i][4])
+                            $("#requirement").val(data[i][5])
+                        }
+                    }
+                }
+            })
+
+            $("#btnAdd").click(function () {
+                // Pathway Talent Acquisition Filled
+                if ($("#typePosJobPosting").is(":checked")) {
+                    if ($("#pathwayTAFill").is(":checked")) {
+                        let row = parseInt(dataHiringOrder.length) + 2
+                        let hiringOrder = {
+                            [`B${row}`]: document.querySelector("input[name='typePos']:checked").value,
+                            [`C${row}`]: document.querySelector("input[name='pathway']:checked").value,
+                            [`D${row}`]: document.querySelector("input[name='sources']:checked").value,
+                            [`E${row}`]: ($("#sourcesTACus").is(":checked")) ? "" : document.getElementById("docFPPK").value,
+                            [`F${row}`]: document.getElementById("positionName").value,
+                            [`G${row}`]: document.getElementById("JobTitle").value,
+                            [`J${row}`]: document.getElementById("placementJob").value,
+                            [`K${row}`]: convertDate(document.getElementById("tgl-start").value),
+                            [`L${row}`]: convertDate(document.getElementById("tgl-end").value),
+                            [`M${row}`]: (document.getElementById("statusHiringOrder").checked) ? "Active" : "Inactive",
+                            [`N${row}`]: (document.getElementById("previewLinkedin").checked) ? 1 : 0,
+                        }
+                        console.log("hiringOrder:", hiringOrder)
+
+                        if ($("#sourcesDocFPPK").is(":checked")) {
+                            google.script.run.setStatusDocFPPK(document.getElementById("docFPPK").value, 1)
+                        }
+
+
+                        let tAFilled = [
+                            (parseInt(dataHiringOrder.length) + 1),
+                            (parseInt(scoringData.length) + 1),
+                            document.getElementById("poin-age-start").value,
+                            document.getElementById("poin-age-end").value,
+                            document.getElementById("poin-age-score").value,
+
+                            document.getElementById("poin-gender").value,
+                            document.getElementById("poin-gender-score").value,
+
+                            document.getElementById("poin-marital").value,
+                            document.getElementById("poin-marital-score").value,
+
+                            document.getElementById("poin-edulevel-start").value,
+                            document.getElementById("poin-edulevel-end").value,
+                            document.getElementById("poin-edulevel-score").value,
+
+                            document.getElementById("poin-studymajor").value,
+                            document.getElementById("poin-studymajor-score").value,
+
+                            document.getElementById("poin-ipk-start").value,
+                            document.getElementById("poin-ipk-end").value,
+                            document.getElementById("poin-ipk-score").value,
+
+                            document.getElementById("poin-experience-start").value,
+                            document.getElementById("poin-experience-end").value,
+                            document.getElementById("poin-experience-score").value,
+
+                            document.getElementById("poin-salary-start").value,
+                            document.getElementById("poin-salary-end").value,
+                            document.getElementById("poin-salary-score").value,
+                        ]
+                        console.log("tAFilled:", tAFilled)
+
+
+                        console.log("row to be added in Hiring Order: ", parseInt(dataHiringOrder.length) + 2)
+                        google.script.run.withSuccessHandler(function () {
+                            $('#successModal').modal('show');
+                            console.log("data Hiring Order Added Successfully")
+                        }).setData(hiringOrder, "hiringOrderTable")
+
+                        console.log("row to be added in TAFilled: ", parseInt(scoringData.length) + 2)
+                        google.script.run.withSuccessHandler(function () {
+                            console.log("data TAFilled Added Successfully")
+                        }).editData(tAFilled, parseInt(scoringData.length) + 2, "TAFilled")
+
+                        // Pathway AI Generate
+                    } else if ($("#pathwayAIGen").is(":checked")) {
+                        console.log("AI Generate")
+                    }
+                } else if ($("#typePosEvent").is(":checked")) {
+                    let row = parseInt(dataHiringOrder.length) + 2
+                    let hiringOrder = {
+                        [`B${row}`]: document.querySelector("input[name='typePos']:checked").value,
+                        [`F${row}`]: document.getElementById("eventName").value,
+                        [`J${row}`]: document.getElementById("placement-event").value,
+                        [`U${row}`]: document.getElementById("description-event").value,
+                        [`K${row}`]: convertDate(document.getElementById("tgl-start-event").value),
+                        [`L${row}`]: convertDate(document.getElementById("tgl-end-event").value),
+                        [`M${row}`]: (document.getElementById("statusEvent").checked) ? "Active" : "Inactive"
+                    }
+                    console.log("hiringOrder:", hiringOrder)
+
+                    console.log("row to be added in Hiring Order: ", parseInt(dataHiringOrder.length) + 2)
+                    google.script.run.withSuccessHandler(function () {
+                        $('#successModal').modal('show');
+                        console.log("data Hiring Order Added Successfully")
+                    }).setData(hiringOrder, "hiringOrderTable")
+                }
+            })
+        })
+    </script> -->
+
+    <!-- <script>
+        function convertDate(dateString) {
+            arrDate = dateString.split("/")
+            let result = ""
+            if (arrDate.length > 1) {
+                // convert dd/mm/yyyy to yyyy-mm-dd
+                let day = arrDate[0]
+                let month = arrDate[1]
+                let year = arrDate[2]
+
+                result = year + "-" + month + "-" + day
+
+            } else {
+                // convert yyyy-mm-dd to dd/mm/yyyy
+                arrDate = dateString.split("-")
+
+                let year = arrDate[0]
+                let month = arrDate[1]
+                let day = arrDate[2]
+
+                result = day + "/" + month + "/" + year
+            }
+
+            return result
+        }
+
+        function loadPage(content) {
+            document.body.innerHTML = content
+        }
+
+        function getPage(page) {
+            google.script.run.withSuccessHandler(loadPage).getHtmlContent(page)
+        }
+    </script> -->
+</body>
+
+</html>
