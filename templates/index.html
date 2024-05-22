@@ -1026,11 +1026,10 @@
     <script>
         $(document).ready(function () {
             const candidatesData = JSON.parse(`{{ candidates|safe }}`);
-            const docFPPKData = JSON.parse(`{{ docFPPK|safe }}`);
-            const jobTitleData = JSON.parse(`{{ jobTitle|safe }}`);
-            
+
             var data = candidatesData;
 
+            // Select2
             var dataSearch = data.map(function (item) {
                 return { id: item.id, text: item.nik + ' - ' + item.name };
             });
@@ -1082,6 +1081,7 @@
                 $('#tableDataAIGen').html(tableData);
             });
 
+            // Button Add Data
             $("#btnAdd").click(function () {
                 console.log(target_candidate)
                 fetch('/recommended_candidates', {
@@ -1105,6 +1105,51 @@
 
     <script>
         $(document).ready(function () {
+            const docFPPKData = JSON.parse(`{{ docFPPK|safe }}`);
+            const jobTitleData = JSON.parse(`{{ jobTitle|safe }}`);
+
+            console.log(docFPPKData)
+            console.log(jobTitleData)
+
+            var dataFPPK = docFPPKData;
+            for (var i = 0; i < dataFPPK.length; i++) {
+                $("#docFPPK").append($("<option>").text(dataFPPK[i].no_doc_fppk).val(dataFPPK[i].no_doc_fppk))
+            }
+            $("#docFPPK").append($("<option>").text("No Document FPPK").val("Auto").prop("hidden", true).prop("selected", true));
+
+            $("#docFPPK").change(function () {
+                var selectedFPPK = $(this).val();
+                var selectedDataFPPK = dataFPPK.find(function (item) {
+                    return item.no_doc_fppk === selectedFPPK;
+                });
+
+                if (selectedDataFPPK) {
+                    $("#JobTitle").text(selectedDataFPPK.job_title_so).val(selectedDataFPPK.job_title_so);
+                    $("#description").val(selectedDataFPPK.description);
+                    $("#requirement").val(selectedDataFPPK.requirement);
+
+                    var availablePlaces = selectedDataFPPK.available_at.split(',').map(function (item) {
+                        return item.trim();
+                    });
+
+                    $("#placementJob").empty();
+                    availablePlaces.forEach(function (place) {
+                        var $option = $("<option>").text(place).val(place);
+                        if (place === selectedDataFPPK.placement) {
+                            $option.prop("selected", true);
+                        }
+                        $("#placementJob").append($option);
+                    });
+
+                } else {
+                    $("#JobTitle").val("");
+                    $("#placementJob").val("");
+                    $("#description").val("");
+                    $("#requirement").val("");
+                }
+            });
+
+
             $("#show-Event").hide();
             $("#showPathTAFilled").hide();
 
@@ -1138,6 +1183,9 @@
             $("input[name='sources']").change(function () {
                 if ($("#show-JobPosting").is(":visible")) {
                     if ($("#sourcesDocFPPK").is(":checked")) {
+                        for (var i = 0; i < dataFPPK.length; i++) {
+                            $("#docFPPK").append($("<option>").text(dataFPPK[i].no_doc_fppk).val(dataFPPK[i].no_doc_fppk))
+                        }
                         $("#docFPPK").append($("<option>").text("No Document FPPK").val("Auto").prop("hidden", true).prop("selected", true));
 
                         $("#JobTitle").html("");
