@@ -210,8 +210,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false" style="margin: 0; padding: 0;">
                         <li class="nav-item">
-                            <a href="https://spil.co.id/" class="nav-link"
-                                style="margin: 0; padding-left: 9.5px;">
+                            <a href="https://spil.co.id/" class="nav-link" style="margin: 0; padding-left: 9.5px;">
                                 <i class="nav-icon"><img src="https://www.spil.co.id/img/spil_logo.581f4306.svg"
                                         alt="logo-spil" style="width: 34px;"></i>
                                 <p class="font-weight-bold" style="font-size: 10pt; padding-left: 16px;">Connecting
@@ -836,7 +835,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <div style="width: 80% !important; text-align: center !important; 
+                                            <div style="width: 90% !important; text-align: center !important; 
                                                         margin: 0 auto 45px auto !important;">
                                                 <table id="mainTableDataAIGen" style="width: 100% !important;"
                                                     class="border">
@@ -1042,6 +1041,53 @@
 
     <script>
         $(document).ready(function () {
+            const candidatesData = JSON.parse('{{ candidates | tojson | safe }}');
+            var data = candidatesData
+            // console.log(candidatesData);
+
+            var dataSearch = data.map(function (item) {
+                return { id: item.id, text: item.nik + ' - ' + item.name };
+            });
+
+            $('#getDummyFromEmployee').select2({
+                data: dataSearch,
+                tags: true,
+                multiple: true,
+                minimumInputLength: 2,
+                placeholder: "Type in and Select NIK / Full Name",
+            });
+
+            $('#getDummyFromEmployee').change(function () {
+                var selectedOptions = $(this).val();
+                var tableData = "";
+
+                for (var i = 0; i < selectedOptions.length; i++) {
+                    var selectedOption = selectedOptions[i];
+                    var selectedItem = data.find(function (item) {
+                        return item.id == selectedOption;
+                    });
+
+                    tableData += "<tr>";
+                    tableData += "<td>" + (i + 1) + "</td>"; // Nomor urut
+
+                    // Menambahkan kolom data ke tabel
+                    tableData += "<td>" + selectedItem.name + ' - ' + selectedItem.nik + "</td>"; // Nama - NIK
+                    tableData += "<td>" + selectedItem.age + "</td>"; // Usia
+                    tableData += "<td>" + selectedItem.gender + "</td>"; // Jenis Kelamin
+                    tableData += "<td>" + selectedItem.marital + "</td>"; // Status Perkawinan
+                    tableData += "<td>" + selectedItem.levelEdu + "</td>"; // Tingkat Pendidikan
+                    tableData += "<td>" + selectedItem.majoring + "</td>"; // Jurusan
+                    tableData += "<td>" + selectedItem.exper + "</td>"; // Pengalaman Kerja
+                    tableData += "</tr>";
+                }
+                $('#tableDataAIGen').html(tableData);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
             $("#show-Event").hide();
             $("#showPathTAFilled").hide();
 
@@ -1134,287 +1180,7 @@
         });
     </script>
 
-
-    <!-- <script>
-        $(document).ready(function () {
-            let dataHiringOrder = []
-            google.script.run.withSuccessHandler(function (data) {
-                dataHiringOrder = data
-                console.log("dataHiringOrder:", dataHiringOrder)
-                console.log("dataHiringOrder.length", dataHiringOrder.length)
-            }).getDataHiringOrder()
-
-            let scoringData = []
-            google.script.run.withSuccessHandler(function (data) {
-                scoringData = data
-                console.log("scoringData", scoringData)
-                console.log("scoringData.length", scoringData.length)
-            }).getScoringData()
-            // Check Boxes
-
-            // Select 2 for Role Model Data
-            google.script.run.withSuccessHandler(function (dataAll) {
-                var data = dataAll
-
-                var dataSearch = data.map(function (item) {
-                    var columns = item.text.split(', ');
-                    return { id: item.id, text: columns[0] + ' - ' + columns[1] };
-                });
-
-                $('#getDummyFromEmployee').select2({
-                    data: dataSearch,
-                    tags: true,
-                    multiple: true,
-                    minimumInputLength: 1,
-                    placeholder: "Type in and Select NIK / Full Name",
-                });
-
-                $('#mainTableDataAIGen').DataTable({
-                    "searching": false,
-                    "lengthChange": false,
-                    "paging": false,
-                    "info": false,
-                });
-
-                $('#getDummyFromEmployee').change(function () {
-                    var selectedOptions = $(this).val();
-                    var tableData = "";
-
-                    for (var i = 0; i < selectedOptions.length; i++) {
-                        var selectedOption = selectedOptions[i];
-                        var selectedItem = data.find(function (item) {
-                            return item.id == selectedOption;
-                        });
-                        tableData += "<tr>";
-                        tableData += "<td>" + (i + 1) + "</td>"; // Nomor urut
-                        var columns = selectedItem.text.split(', ');
-                        for (var j = 1; j < columns.length; j++) {
-                            if (j == 1 || j == 6) {
-                                tableData += "<td style='text-align: justify !important;'>" + columns[j] + "</td>";
-                            } else {
-                                tableData += "<td style='text-align: center !important;'>" + columns[j] + "</td>";
-                            }
-                        }
-                        tableData += "</tr>";
-                    }
-                    $('#tableDataAIGen').html(tableData);
-                });
-            }).getDataCandidate()
-
-
-            // Select for No Doc FPPK
-            google.script.run.withSuccessHandler(function (htmlindex) {
-                document.getElementById('docFPPK').innerHTML = htmlindex;
-            }).displayDataNoDocFPPK();
-
-            // Approved FPPK Document Checked
-            // No Doc FPPK changed
-            $('#docFPPK').change(function () {
-                google.script.run.withSuccessHandler(function (data) {
-                    data[0] = data[0][0]
-                    dataDocFPPK = data
-                    console.log(data)
-
-                    // JobTitle
-                    titleArr = []
-                    for (let i = 0; i < data[1].length; i++) {
-                        titleArr.push(data[1][i][1])
-                    }
-
-                    titleOptions = ""
-                    for (let i = 0; i < titleArr.length; i++) {
-                        titleOptions += `<option value="${i + 1}">${titleArr[i]}</option>`
-                    }
-                    $('#JobTitle').html(titleOptions)
-
-                    for (let i = 0; i < data[1].length; i++) {
-                        if (data[1][i][1] == data[0][3]) {
-                            $('#JobTitle').val(data[1][i][0])
-                        }
-                    }
-                    // Job Title
-
-                    // Placement
-                    placementOptions = ""
-                    placementArr = data[0][8].split(", ")
-                    for (let i = 0; i < placementArr.length; i++) {
-                        placementOptions += `<option value="${placementArr[i]}">${placementArr[i]}</option>`
-                    }
-                    $('#placementJob').html(placementOptions)
-
-                    $('#placementJob').val(data[0][5])
-                    // Placement
-
-                    $('#description').val(data[0][6])
-                    $('#requirement').val(data[0][7])
-                }).getDataFPPK($('#docFPPK').val())
-            })
-            // No Doc FPPK changed
-            // Approved FPPK Document Checked
-
-            // Talent Acquisition Custom Checked
-            let dataJobTitle = []
-            let titleArr = []
-            let placementArr = []
-            $('#sourcesTACus').change(function () {
-                google.script.run.withSuccessHandler(function (data) {
-                    dataJobTitle = data
-                    console.log(dataJobTitle)
-
-                    titleOptions = ""
-                    for (let i = 0; i < dataJobTitle.length; i++) {
-                        titleOptions = document.createElement("option")
-                        titleOptions.value = dataJobTitle[i][0]
-                        titleOptions.text = dataJobTitle[i][1]
-                        $("#JobTitle").append(titleOptions)
-                    }
-
-                }).getDataSO()
-            })
-
-            $("#JobTitle").change(function () {
-                let id = this.value
-                console.log(id)
-                if (dataJobTitle.length == 0) {
-                    google.script.run.withSuccessHandler(function (data) {
-                        dataJobTitle = data
-                        console.log(data)
-                        for (let i = 0; i < data.length; i++) {
-                            if (id == data[i][0]) {
-                                placementArr = data[i][6].split(", ")
-
-                                placementOptions = ""
-                                for (let i = 0; i < placementArr.length; i++) {
-                                    placementOptions += `<option value="${placementArr[i]}">${placementArr[i]}</option>`
-                                }
-                                $("#placementJob").html(placementOptions)
-
-                                $("#placementJob").val(data[i][3])
-                                $("#description").val(data[i][4])
-                                $("#requirement").val(data[i][5])
-                            }
-                        }
-                    }).getDataSO()
-                } else {
-                    data = dataJobTitle
-                    console.log(data)
-                    for (let i = 0; i < data.length; i++) {
-                        if (id == data[i][0]) {
-                            placementArr = data[i][6].split(", ")
-
-                            placementOptions = ""
-                            for (let i = 0; i < placementArr.length; i++) {
-                                placementOptions += `<option value="${placementArr[i]}">${placementArr[i]}</option>`
-                            }
-                            $("#placementJob").html(placementOptions)
-
-                            $("#placementJob").val(data[i][3])
-                            $("#description").val(data[i][4])
-                            $("#requirement").val(data[i][5])
-                        }
-                    }
-                }
-            })
-
-            $("#btnAdd").click(function () {
-                // Pathway Talent Acquisition Filled
-                if ($("#typePosJobPosting").is(":checked")) {
-                    if ($("#pathwayTAFill").is(":checked")) {
-                        let row = parseInt(dataHiringOrder.length) + 2
-                        let hiringOrder = {
-                            [`B${row}`]: document.querySelector("input[name='typePos']:checked").value,
-                            [`C${row}`]: document.querySelector("input[name='pathway']:checked").value,
-                            [`D${row}`]: document.querySelector("input[name='sources']:checked").value,
-                            [`E${row}`]: ($("#sourcesTACus").is(":checked")) ? "" : document.getElementById("docFPPK").value,
-                            [`F${row}`]: document.getElementById("positionName").value,
-                            [`G${row}`]: document.getElementById("JobTitle").value,
-                            [`J${row}`]: document.getElementById("placementJob").value,
-                            [`K${row}`]: convertDate(document.getElementById("tgl-start").value),
-                            [`L${row}`]: convertDate(document.getElementById("tgl-end").value),
-                            [`M${row}`]: (document.getElementById("statusHiringOrder").checked) ? "Active" : "Inactive",
-                            [`N${row}`]: (document.getElementById("previewLinkedin").checked) ? 1 : 0,
-                        }
-                        console.log("hiringOrder:", hiringOrder)
-
-                        if ($("#sourcesDocFPPK").is(":checked")) {
-                            google.script.run.setStatusDocFPPK(document.getElementById("docFPPK").value, 1)
-                        }
-
-
-                        let tAFilled = [
-                            (parseInt(dataHiringOrder.length) + 1),
-                            (parseInt(scoringData.length) + 1),
-                            document.getElementById("poin-age-start").value,
-                            document.getElementById("poin-age-end").value,
-                            document.getElementById("poin-age-score").value,
-
-                            document.getElementById("poin-gender").value,
-                            document.getElementById("poin-gender-score").value,
-
-                            document.getElementById("poin-marital").value,
-                            document.getElementById("poin-marital-score").value,
-
-                            document.getElementById("poin-edulevel-start").value,
-                            document.getElementById("poin-edulevel-end").value,
-                            document.getElementById("poin-edulevel-score").value,
-
-                            document.getElementById("poin-studymajor").value,
-                            document.getElementById("poin-studymajor-score").value,
-
-                            document.getElementById("poin-ipk-start").value,
-                            document.getElementById("poin-ipk-end").value,
-                            document.getElementById("poin-ipk-score").value,
-
-                            document.getElementById("poin-experience-start").value,
-                            document.getElementById("poin-experience-end").value,
-                            document.getElementById("poin-experience-score").value,
-
-                            document.getElementById("poin-salary-start").value,
-                            document.getElementById("poin-salary-end").value,
-                            document.getElementById("poin-salary-score").value,
-                        ]
-                        console.log("tAFilled:", tAFilled)
-
-
-                        console.log("row to be added in Hiring Order: ", parseInt(dataHiringOrder.length) + 2)
-                        google.script.run.withSuccessHandler(function () {
-                            $('#successModal').modal('show');
-                            console.log("data Hiring Order Added Successfully")
-                        }).setData(hiringOrder, "hiringOrderTable")
-
-                        console.log("row to be added in TAFilled: ", parseInt(scoringData.length) + 2)
-                        google.script.run.withSuccessHandler(function () {
-                            console.log("data TAFilled Added Successfully")
-                        }).editData(tAFilled, parseInt(scoringData.length) + 2, "TAFilled")
-
-                        // Pathway AI Generate
-                    } else if ($("#pathwayAIGen").is(":checked")) {
-                        console.log("AI Generate")
-                    }
-                } else if ($("#typePosEvent").is(":checked")) {
-                    let row = parseInt(dataHiringOrder.length) + 2
-                    let hiringOrder = {
-                        [`B${row}`]: document.querySelector("input[name='typePos']:checked").value,
-                        [`F${row}`]: document.getElementById("eventName").value,
-                        [`J${row}`]: document.getElementById("placement-event").value,
-                        [`U${row}`]: document.getElementById("description-event").value,
-                        [`K${row}`]: convertDate(document.getElementById("tgl-start-event").value),
-                        [`L${row}`]: convertDate(document.getElementById("tgl-end-event").value),
-                        [`M${row}`]: (document.getElementById("statusEvent").checked) ? "Active" : "Inactive"
-                    }
-                    console.log("hiringOrder:", hiringOrder)
-
-                    console.log("row to be added in Hiring Order: ", parseInt(dataHiringOrder.length) + 2)
-                    google.script.run.withSuccessHandler(function () {
-                        $('#successModal').modal('show');
-                        console.log("data Hiring Order Added Successfully")
-                    }).setData(hiringOrder, "hiringOrderTable")
-                }
-            })
-        })
-    </script> -->
-
-    <!-- <script>
+    <script>
         function convertDate(dateString) {
             arrDate = dateString.split("/")
             let result = ""
@@ -1447,7 +1213,7 @@
         function getPage(page) {
             google.script.run.withSuccessHandler(loadPage).getHtmlContent(page)
         }
-    </script> -->
+    </script>
 </body>
 
 </html>

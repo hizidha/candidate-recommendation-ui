@@ -8,9 +8,18 @@ from function import recommend_candidates1, recommend_candidates2
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.get('/')
 def index():
-  return render_template('recommendation.html')
+    # Membaca data dari sheet "candidateData"
+    df = pd.read_excel("./data/jobPostingLocal.xlsx", sheet_name='candidateData').fillna(value="")
+    # df = df.where(pd.notnull(df), None)
+    
+    # Mengonversi DataFrame ke list of dictionaries
+    candidate_data = df.to_dict(orient='records')
+  
+    # return render_template('recommendation.html')
+    return render_template('index.html', candidates=candidate_data)
+
 
 @app.route('/recommended_candidates', methods=["POST"])
 def recommend_candidates_route():
