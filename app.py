@@ -119,6 +119,12 @@ def recommend_candidates_route():
     # return recommended_candidates
     # return render_template('recommendation.html', recommended_candidates=recommended_candidates)
 
+@app.route("/recommendation_result")
+def recommendation_result():
+   result = request.args.get("result")
+  #  return render_template("recommendation.html", recommended_candidates=result)
+   return render_template("recommendation.html")
+
 
 # @app.route('/submit', methods=['POST'])
 # def submit_data():

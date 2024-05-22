@@ -1092,6 +1092,10 @@
                     body: JSON.stringify(target_candidate)
                 })
                     .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        window.location.href = `/recommendation_result?result=${JSON.stringify(data)}`
+                    })
                     .catch((error) => {
                         console.error('Error:', error);
                     });
