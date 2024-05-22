@@ -882,6 +882,11 @@
                                                                     style="font-size: 14px; margin: 0; padding: 5px 0;">
                                                                     Experience</p>
                                                             </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Last Position</p>
+                                                            </td>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tableDataAIGen">
@@ -987,27 +992,6 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <!-- Modal Success Add -->
-        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
-            aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="successModalLabel">Congratulation!</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p>Data Hiring Order Added Successfully.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="<?!=url?>?page=transaction" class="btn btn-danger mr-2"
-                            style="padding: 5.5px 0; width: 145px;">
-                            Back to Activity
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- Default to the left -->
@@ -1041,21 +1025,21 @@
 
     <script>
         $(document).ready(function () {
-            const candidatesData = JSON.parse('{{ candidates | tojson | safe }}');
-            var data = candidatesData
-            // console.log(candidatesData);
+            const candidatesData = JSON.parse(`{{ candidates|safe }}`);
+            const docFPPKData = JSON.parse(`{{ docFPPK|safe }}`);
+            const jobTitleData = JSON.parse(`{{ jobTitle|safe }}`);
+            
+            var data = candidatesData;
 
             var dataSearch = data.map(function (item) {
                 return { id: item.id, text: item.nik + ' - ' + item.name };
             });
 
-            console.log(data)
-
             $('#getDummyFromEmployee').select2({
                 data: dataSearch,
                 tags: true,
                 multiple: true,
-                minimumInputLength: 2,
+                minimumInputLength: 1,
                 placeholder: "Type in and Select NIK / Full Name",
             });
 
@@ -1075,13 +1059,14 @@
                     tableData += "<td>" + (i + 1) + "</td>"; // Nomor urut
 
                     // Menambahkan kolom data ke tabel
-                    tableData += "<td>" + selectedItem.name + ' - ' + selectedItem.nik + "</td>"; // Nama - NIK
+                    tableData += "<td style='text-align: left;'>" + selectedItem.name + ' - ' + selectedItem.nik + "</td>"; // Nama - NIK
                     tableData += "<td>" + selectedItem.age + "</td>"; // Usia
                     tableData += "<td>" + selectedItem.gender + "</td>"; // Jenis Kelamin
                     tableData += "<td>" + selectedItem.marital + "</td>"; // Status Perkawinan
                     tableData += "<td>" + selectedItem.levelEdu + "</td>"; // Tingkat Pendidikan
                     tableData += "<td>" + selectedItem.majoring + "</td>"; // Jurusan
                     tableData += "<td>" + selectedItem.exper + "</td>"; // Pengalaman Kerja
+                    tableData += "<td style='text-align: left;'>" + selectedItem.last_position + "</td>"; // Posisi Terakhir
                     tableData += "</tr>";
 
                     target_candidate.push({
@@ -1116,7 +1101,6 @@
 
     <script>
         $(document).ready(function () {
-
             $("#show-Event").hide();
             $("#showPathTAFilled").hide();
 

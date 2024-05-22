@@ -1,24 +1,38 @@
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
+import json
 
-from function import encodeGender, encodeStatus, encodeEducation, encodeExperience
+from function import encodeGender, encodeStatus, encodeEducation, encodeExperience, clean_text
 from function import recommend_candidates1, recommend_candidates2
 
 
 app = Flask(__name__)
 
-@app.get('/')
+@app.route('/')
 def index():
-    # Membaca data dari sheet "candidateData"
+    # Membaca data dari sheet yang berbeda dan mengganti NaN dengan string kosong
     df = pd.read_excel("./data/jobPostingLocal.xlsx", sheet_name='candidateData').fillna(value="")
-    # df = df.where(pd.notnull(df), None)
-    
+    df1 = pd.read_excel("./data/jobPostingLocal.xlsx", sheet_name='docFPPK').fillna(value="")
+    df2 = pd.read_excel("./data/jobPostingLocal.xlsx", sheet_name='jobTitleSO').fillna(value="")
+
+    # Membersihkan karakter kontrol dari data
+    df = df.applymap(clean_text)
+    df1 = df1.applymap(clean_text)
+    df2 = df2.applymap(clean_text)
+
     # Mengonversi DataFrame ke list of dictionaries
-    candidate_data = df.to_dict(orient='records')
-  
-    # return render_template('recommendation.html')
-    return render_template('index.html', candidates=candidate_data)
+    candidate = df.to_dict(orient='records')
+    docfppk = df1.to_dict(orient='records')
+    jobtitle = df2.to_dict(orient='records')
+
+    # Mengonversi data ke JSON string dengan pengamanan
+    candidates_json = json.dumps(candidate, ensure_ascii=False)
+    docfppk_json = json.dumps(docfppk, ensure_ascii=False)
+    jobtitle_json = json.dumps(jobtitle, ensure_ascii=False)
+
+    # Mengirim data ke template
+    return render_template('index.html', candidates=candidates_json, docFPPK=docfppk_json, jobTitle=jobtitle_json)
 
 
 @app.route('/recommended_candidates', methods=["POST"])
@@ -101,9 +115,9 @@ def recommend_candidates_route():
       recommended_candidates = recommend_candidates2(target_candidate, dfCandidate, vectorizer)
 
     # Convert results to JSON and return
-    # return jsonify(recommended_candidates)
+    return jsonify(recommended_candidates)
     # return recommended_candidates
-    return render_template('recommendation.html', recommended_candidates=recommended_candidates)
+    # return render_template('recommendation.html', recommended_candidates=recommended_candidates)
 
 
 # @app.route('/submit', methods=['POST'])
@@ -123,4 +137,4 @@ def recommend_candidates_route():
 #     return jsonify({"data": data, "data1": data1})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8999)
+    app.run(debug=True, port=8889)

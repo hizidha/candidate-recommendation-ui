@@ -3,6 +3,12 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+
+def clean_text(text):
+    if isinstance(text, str):
+        return text.replace('\n', ' ').replace('\r', '')
+    return text
+
 def encodeGender(gender):
     encode = {'Free': 0, 'Pria': 1, 'Wanita': 2}
     if isinstance(gender, str):
