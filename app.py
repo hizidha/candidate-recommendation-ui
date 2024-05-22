@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 
@@ -101,9 +101,9 @@ def recommend_candidates_route():
       recommended_candidates = recommend_candidates2(target_candidate, dfCandidate, vectorizer)
 
     # Convert results to JSON and return
-    return jsonify(recommended_candidates)
+    # return jsonify(recommended_candidates)
     # return recommended_candidates
-    # return render_template('recommendation.html', recommended_candidates=recommended_candidates)
+    return render_template('recommendation.html', recommended_candidates=recommended_candidates)
 
 
 # @app.route('/submit', methods=['POST'])
@@ -123,4 +123,4 @@ def recommend_candidates_route():
 #     return jsonify({"data": data, "data1": data1})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8999)

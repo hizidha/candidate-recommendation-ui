@@ -1049,6 +1049,8 @@
                 return { id: item.id, text: item.nik + ' - ' + item.name };
             });
 
+            console.log(data)
+
             $('#getDummyFromEmployee').select2({
                 data: dataSearch,
                 tags: true,
@@ -1057,7 +1059,9 @@
                 placeholder: "Type in and Select NIK / Full Name",
             });
 
+            let target_candidate = []
             $('#getDummyFromEmployee').change(function () {
+                target_candidate = []
                 var selectedOptions = $(this).val();
                 var tableData = "";
 
@@ -1079,9 +1083,34 @@
                     tableData += "<td>" + selectedItem.majoring + "</td>"; // Jurusan
                     tableData += "<td>" + selectedItem.exper + "</td>"; // Pengalaman Kerja
                     tableData += "</tr>";
+
+                    target_candidate.push({
+                        "Gender": selectedItem.gender,
+                        "Age": selectedItem.age,
+                        "Marital_Status": selectedItem.marital,
+                        "Education_Level": selectedItem.levelEdu,
+                        "Experience": selectedItem.exper,
+                        "Study_Major": selectedItem.majoring,
+                        "Last_Position": selectedItem.last_position
+                    })
                 }
                 $('#tableDataAIGen').html(tableData);
             });
+
+            $("#btnAdd").click(function () {
+                console.log(target_candidate)
+                fetch('/recommended_candidates', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(target_candidate)
+                })
+                    .then(response => response.json())
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            })
         });
     </script>
 
