@@ -5,24 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recommended Candidates</title>
+    <!-- JQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <h1>Recommended Candidates</h1>
+    <h1>Candidate Recommendation</h1>
+    <h2>Target Candidate</h2>
+    <table id="targetCandidateTable" border="1">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Full Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Marital Status</th>
+                <th>Education Level</th>
+                <th>Experience</th>
+                <th>Study Major</th>
+                <th>Last Position</th>
+            </tr>
+        </thead>
+        <tbody id="target_candidate">
+
+        </tbody>
+    </table>
+    <br>
+
+    <h2>Recommended Candidate</h2>
     <table>
         <tbody>
             <tr>
                 <td><label for="showNum">Show</label></td>
                 <td>:</td>
-                <td><input type="number" id="showNum"></td>
+                <td><input type="number" id="showNum" value="10"></td>
             </tr>
         </tbody>
     </table>
     <br>
-    <table border="1">
+
+    <table id="candidateRecommendationTable" border="1">
         <thead>
             <tr>
                 <th>No</th>
@@ -37,36 +61,115 @@
                 <th>Last Position</th>
             </tr>
         </thead>
-        <tbody id="candidateRecommendationTable">
+        <tbody id="recommended_candidates">
         </tbody>
         <!-- {% for candidate in recommended_candidates %}
-            {% if loop.index <= 10 %} <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ candidate[0] }}</td>
-                <td>{{ candidate[1] }}</td>
-                <td>{{ candidate[2] }}</td>
-                <td>{{ candidate[3] }}</td>
-                <td>{{ candidate[4] }}</td>
-                <td>{{ candidate[5] }}</td>
-                <td>{{ candidate[6] }}</td>
-                <td>{{ candidate[7] }}</td>
-                <td>{{ candidate[8] }}</td>
+            {% if loop.index <= 10 %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ candidate[0] }}</td>
+                    <td>{{ candidate[1] }}</td>
+                    <td>{{ candidate[2] }}</td>
+                    <td>{{ candidate[3] }}</td>
+                    <td>{{ candidate[4] }}</td>
+                    <td>{{ candidate[5] }}</td>
+                    <td>{{ candidate[6] }}</td>
+                    <td>{{ candidate[7] }}</td>
+                    <td>{{ candidate[8] }}</td>
                 </tr>
             {% endif %}
         {% endfor %} -->
 
     </table>
+    <br>
+    <button id="btnBack">Back</button>
 </body>
 
 <script>
-    // Get the URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
+    $(document).ready(function () {
+        // Get the URL parameters
+        // const urlParams = new URLSearchParams(window.location.search);
 
-    // Get the value of the 'result' parameter
-    const result = urlParams.get('result');
+        // Get the value of the 'result' parameter
+        // let result = urlParams.get('result');
+        // let candidate = urlParams.get('candidate');
+        let result = localStorage.getItem('recommended_candidate');
+        let candidate = localStorage.getItem('target_candidate');
 
-    // Now 'result' contains the value of the 'result' parameter from the URL
-    console.log(JSON.parse(result));
+        console.log(JSON.parse(result));
+        console.log(JSON.parse(candidate));
+
+        result = JSON.parse(result)
+        candidate = JSON.parse(candidate)
+
+        tableTarget = ""
+        for (let i = 0; i < candidate.length; i++) {
+            tableTarget += "<tr>";
+            tableTarget += "<td>" + (i + 1) + "</td>"; // Nomor urut
+
+            // Menambahkan kolom data ke tabel
+            tableTarget += "<td style='text-align: left;'>" + candidate[i].name + ' - ' + candidate[i].nik + "</td>"; // Nama - NIK
+            tableTarget += "<td>" + candidate[i].gender + "</td>"; // Jenis Kelamin
+            tableTarget += "<td>" + candidate[i].age + "</td>"; // Usia
+            tableTarget += "<td>" + candidate[i].marital + "</td>"; // Status Perkawinan
+            tableTarget += "<td>" + candidate[i].levelEdu + "</td>"; // Tingkat Pendidikan
+            tableTarget += "<td>" + candidate[i].exper + " tahun</td>"; // Pengalaman Kerja
+            tableTarget += "<td>" + candidate[i].majoring + "</td>"; // Jurusan
+            tableTarget += "<td style='text-align: left;'>" + candidate[i].last_position + "</td>"; // Posisi Terakhir
+            tableTarget += "</tr>";
+        }
+        $("#target_candidate").html(tableTarget)
+
+        let recommended_html = ""
+        $.each(result, function (index, value) {
+            if (index < $("#showNum").val()) {
+                recommended_html += `
+                 <tr>
+                    <td>${index + 1}</td>
+                    <td>${value[0]}</td>
+                    <td>${value[1]}</td>
+                    <td>${value[2]}</td>
+                    <td>${value[3]}</td>
+                    <td>${value[4]}</td>
+                    <td>${value[5]}</td>
+                    <td>${value[6]}</td>
+                    <td>${value[7]}</td>
+                    <td>${value[8]}</td>
+                </tr>`
+            }
+        })
+        $("#recommended_candidates").html(recommended_html)
+
+
+        // If Show Number is changed
+        $("#showNum").change(function () {
+            console.log("changed")
+            recommended_html = ""
+            $.each(result, function (index, value) {
+                if (index < $("#showNum").val()) {
+                    recommended_html += `
+                 <tr>
+                    <td>${index + 1}</td>
+                    <td>${value[0]}</td>
+                    <td>${value[1]}</td>
+                    <td>${value[2]}</td>
+                    <td>${value[3]}</td>
+                    <td>${value[4]}</td>
+                    <td>${value[5]}</td>
+                    <td>${value[6]}</td>
+                    <td>${value[7]}</td>
+                    <td>${value[8]}</td>
+                </tr>`
+                }
+            })
+
+            $("#recommended_candidates").html(recommended_html)
+        })
+
+        $("#btnBack").click(function () {
+            window.history.back()
+        })
+    })
 </script>
 
 </html>

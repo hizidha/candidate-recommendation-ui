@@ -1043,6 +1043,7 @@
             });
 
             let target_candidate = []
+            let targetCandidate = []
             $('#getDummyFromEmployee').change(function () {
                 target_candidate = []
                 var selectedOptions = $(this).val();
@@ -1077,6 +1078,8 @@
                         "Study_Major": selectedItem.majoring,
                         "Last_Position": selectedItem.last_position
                     })
+
+                    targetCandidate.push(selectedItem)
                 }
                 $('#tableDataAIGen').html(tableData);
             });
@@ -1094,7 +1097,10 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
-                        window.location.href = `/recommendation_result?result=${JSON.stringify(data)}`
+                        console.log(target_candidate)
+                        localStorage.setItem("recommended_candidate", JSON.stringify(data))
+                        localStorage.setItem("target_candidate", JSON.stringify(targetCandidate))
+                        window.location.href = `/recommendation_result`
                     })
                     .catch((error) => {
                         console.error('Error:', error);
