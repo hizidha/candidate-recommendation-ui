@@ -1076,10 +1076,8 @@
     <script>
         $(document).ready(function () {
             const docFPPKData = JSON.parse(`{{ docFPPK|safe }}`);
-            const jobTitleData = JSON.parse(`{{ jobTitle|safe }}`);
 
             console.log(docFPPKData)
-            console.log(jobTitleData)
 
             var dataFPPK = docFPPKData;
             for (var i = 0; i < dataFPPK.length; i++) {
@@ -1092,9 +1090,10 @@
                 var selectedDataFPPK = dataFPPK.find(function (item) {
                     return item.no_doc_fppk === selectedFPPK;
                 });
+                console.log(selectedDataFPPK)
 
                 if (selectedDataFPPK) {
-                    $("#JobTitle").text(selectedDataFPPK.job_title_so).val(selectedDataFPPK.job_title_so);
+                    $("#JobTitle").val(selectedDataFPPK.id_title_so);
                     $("#description").val(selectedDataFPPK.description);
                     $("#requirement").val(selectedDataFPPK.requirement);
 
@@ -1106,6 +1105,46 @@
                     availablePlaces.forEach(function (place) {
                         var $option = $("<option>").text(place).val(place);
                         if (place === selectedDataFPPK.placement) {
+                            $option.prop("selected", true);
+                        }
+                        $("#placementJob").append($option);
+                    });
+
+                } else {
+                    $("#JobTitle").val("");
+                    $("#placementJob").val("");
+                    $("#description").val("");
+                    $("#requirement").val("");
+                }
+            });
+
+            const jobTitleData = JSON.parse(`{{ jobTitle|safe }}`);
+            console.log(jobTitleData)
+            var dataJobTitle = jobTitleData;
+            for (var i = 0; i < dataJobTitle.length; i++) {
+                $("#JobTitle").append($("<option>").text(dataJobTitle[i].job_title_so).val(dataJobTitle[i].id))
+            }
+            $("#JobTitle").append($("<option>").text("Auto").val("Auto").prop("hidden", true).prop("selected", true));
+
+            $("#JobTitle").change(function () {
+                var selectedJob = $(this).val();
+                var selectedJobTitle = dataJobTitle.find(function (item) {
+                    return item.id === parseInt(selectedJob);
+                });
+                console.log(selectedJobTitle)
+
+                if (selectedJobTitle) {
+                    $("#description").val(selectedJobTitle.description);
+                    $("#requirement").val(selectedJobTitle.requirement);
+
+                    var availablePlaces = selectedJobTitle.available_at.split(',').map(function (item) {
+                        return item.trim();
+                    });
+
+                    $("#placementJob").empty();
+                    availablePlaces.forEach(function (place) {
+                        var $option = $("<option>").text(place).val(place);
+                        if (place === selectedJobTitle.placement) {
                             $option.prop("selected", true);
                         }
                         $("#placementJob").append($option);
