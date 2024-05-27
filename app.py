@@ -41,7 +41,9 @@ def recommend_candidates_route():
     data = request.json
     
     # Your provided code for processing candidate recommendation
-    dfCandidate = pd.read_excel("./data/Data Recommendation Candidate.xlsx")
+    dfExcel = pd.read_excel("./data/Data Recommendation Candidate.xlsx")
+
+    dfCandidate = dfExcel.copy()
 
     new_column_names = {
     'NAMA': 'Name',
@@ -114,8 +116,14 @@ def recommend_candidates_route():
       # Recommendation
       recommended_candidates = recommend_candidates2(target_candidate, dfCandidate, vectorizer)
 
+    indicesArr = []
+    for candidate in recommended_candidates:
+       indicesArr.append(candidate[9])
+
+    recommended_df = dfExcel.iloc[indicesArr].to_dict(orient="records")
+
     # Convert results to JSON and return
-    return jsonify(recommended_candidates)
+    return jsonify(recommended_candidates, recommended_df)
     # return recommended_candidates
     # return render_template('recommendation.html', recommended_candidates=recommended_candidates)
 
@@ -123,7 +131,7 @@ def recommend_candidates_route():
 def recommendation_result():
    result = request.args.get("result")
   #  return render_template("recommendation.html", recommended_candidates=result)
-   return render_template("recommendation.html")
+   return render_template("detailHiringOrder.html")
 
 
 # @app.route('/submit', methods=['POST'])

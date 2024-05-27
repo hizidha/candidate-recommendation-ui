@@ -691,7 +691,7 @@
                 </div>
                 <div class="modal-body">
                     <table id="tableRoleModel" style="width: 100% !important; margin: 14px 0 !important;"
-                    class="table table-bordered table-hover">
+                        class="table table-bordered table-hover">
                         <thead style="background-color: rgb(202, 8, 8); color: white;">
                             <tr>
                                 <th>No</th>
@@ -706,7 +706,9 @@
                             </tr>
                         </thead>
                         <tbody id="dataTableRoleModel">
-                            <tr><td colspan="9" style="text-align: center;">No data Available.</td></tr>
+                            <tr>
+                                <td colspan="9" style="text-align: center;">No data Available.</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -921,6 +923,99 @@
                 $("#btn-sendBelow").removeClass("btn-secondary").addClass("btn-success")
             }
         }
+    </script>
+
+    <script>
+        let result = localStorage.getItem('recommended_candidate');
+        let candidate = localStorage.getItem('target_candidate');
+        let dfCandidate = localStorage.getItem('recommended_df');
+
+        console.log(JSON.parse(result));
+        console.log(JSON.parse(candidate));
+        console.log(JSON.parse(dfCandidate));
+
+        result = JSON.parse(result)
+        candidate = JSON.parse(candidate)
+        dfCandidate = JSON.parse(dfCandidate)
+
+
+        targetRow = ""
+        $.each(candidate, function (index, value) {
+            targetRow += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${value.name} - ${value.nik}</td>
+                <td>${value.age}</td>
+                <td>${value.gender}</td>
+                <td>${value.marital}</td>
+                <td>${value.levelEdu}</td>
+                <td>${value.majoring}</td>
+                <td>${value.exper}</td>
+                <td>${value.last_position}</td>
+            </tr>`
+        })
+        $("#dataTableRoleModel").html(targetRow)
+
+
+        recommendationRow = ""
+        $.each(result, function (index, value) {
+            recommendationRow += `
+            <tr>
+                <td>${index + 1}</td>
+                <td><div class="row"><div style="margin: 3.25px 8px !important;"><input type="checkbox" id="checkbox` + (index+1) + `" name="checkbox" onchange="toggleButton()"></div></td>
+                <td>${value[0]}</td>
+                <td>${value[1]}</td>
+                <td>${value[2]}</td>
+                <td>${value[3]}</td>
+                <td>${value[4]}</td>
+                <td></td>
+                <td>${value[7]}</td>
+                <td>${value[5]}</td>
+                <td></td>
+                <td></td>
+                <td>${value[8]}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>`
+        })
+        $("#tableApplicantDetailData-tab2").html(recommendationRow)
+
+        recommendationRow = ""
+        for (let i = 0; i < dfCandidate.length; i++) {
+            recommendationRow += `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>
+                        <div class="row"><div style="margin: 3.25px 8px !important;">
+                            <input type="checkbox" id="checkbox` + (i + 1) + `" name="checkbox" onchange="toggleButton()">
+                        </div>
+                    </td>
+                    <td>${result[i][0]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i]}</td>
+                </tr>`
+        }
+
+        $("#tableApplicantDetail-tab2").DataTable({
+            "lengthChange": true,
+            "scrollCollapse": true,
+        });
     </script>
 
     <script>

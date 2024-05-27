@@ -93,6 +93,7 @@ def recommend_candidates1(target_candidate, candidates_data, vectorizer):
             candidate["Experience"],
             candidate["Study_Major"],
             candidate["Last_Position"],
+            str(index),
             ))
     similarities.sort(key=lambda x: x[0], reverse=True)
     return similarities
@@ -127,6 +128,7 @@ def recommend_candidates2(target_candidates, candidates_data, vectorizer):
             candidate_data["Experience"],
             candidate_data["Study_Major"],
             candidate_data["Last_Position"],
+            str(index),
         ))
 
     return recommended_candidates

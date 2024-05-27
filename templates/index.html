@@ -1010,7 +1010,9 @@
             let targetCandidate = []
             $('#getDummyFromEmployee').change(function () {
                 target_candidate = []
+                targetCandidate = []
                 var selectedOptions = $(this).val();
+                console.log(selectedOptions)
                 var tableData = "";
 
                 for (var i = 0; i < selectedOptions.length; i++) {
@@ -1045,12 +1047,13 @@
 
                     targetCandidate.push(selectedItem)
                 }
+                console.log("target_candidate:", target_candidate)
+                console.log("targetCandidate:", targetCandidate)
                 $('#tableDataAIGen').html(tableData);
             });
 
             // Button Add Data
             $("#btnAdd").click(function () {
-                console.log(target_candidate)
                 fetch('/recommended_candidates', {
                     method: 'POST',
                     headers: {
@@ -1060,9 +1063,11 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data)
-                        console.log(target_candidate)
-                        localStorage.setItem("recommended_candidate", JSON.stringify(data))
+                        // console.log(data[0])
+                        // console.log(data[1])
+                        // console.log(target_candidate)
+                        localStorage.setItem("recommended_candidate", JSON.stringify(data[0]))
+                        localStorage.setItem("recommended_df", JSON.stringify(data[1]))
                         localStorage.setItem("target_candidate", JSON.stringify(targetCandidate))
                         window.location.href = `/recommendation_result`
                     })
