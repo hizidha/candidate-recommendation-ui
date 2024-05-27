@@ -492,7 +492,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table id="tableApplicantDetail-tab2"
+                                    <table id="tableApplicantDetail-tab2" style="width: 100%;"
                                         class="table-sm table-striped table-bordered table-hover">
                                         <thead style="background-color: rgb(223, 23, 23); color: white;">
                                             <tr>
@@ -617,7 +617,7 @@
                                     <p class="font-weight-semibold pFormAdds">:</p>
                                 </td>
                                 <td style="width: 10%;">
-                                    <p class="font-weight-bold pFormAdds" id="status1field"></p>
+                                    <p class="font-weight-bold pFormAdds" id="status1field">0</p>
                                 </td>
                                 <td style="width: 17.5%;">
                                     <p class="font-weight-semibold pFormAdds">Interview (HR)</p>
@@ -626,7 +626,7 @@
                                     <p class="font-weight-semibold pFormAdds">:</p>
                                 </td>
                                 <td style="width: 10%;">
-                                    <p class="font-weight-bold pFormAdds" id="status3field"></p>
+                                    <p class="font-weight-bold pFormAdds" id="status3field">0</p>
                                 </td>
                                 <td style="width: 17.5%;">
                                     <p class="font-weight-semibold pFormAdds">Final Interview</p>
@@ -635,7 +635,7 @@
                                     <p class="font-weight-semibold pFormAdds">:</p>
                                 </td>
                                 <td style="width: 10%;">
-                                    <p class="font-weight-bold pFormAdds" id="status5field"></p>
+                                    <p class="font-weight-bold pFormAdds" id="status5field">0</p>
                                 </td>
                             </tr>
                             <tr>
@@ -646,7 +646,7 @@
                                     <p class="font-weight-semibold pFormAdds">:</p>
                                 </td>
                                 <td style="width: 10%;">
-                                    <p class="font-weight-bold pFormAdds" id="status2field"></p>
+                                    <p class="font-weight-bold pFormAdds" id="status2field">0</p>
                                 </td>
                                 <td style="width: 17.5%;">
                                     <p class="font-weight-semibold pFormAdds">Interview (User)</p>
@@ -655,7 +655,7 @@
                                     <p class="font-weight-semibold pFormAdds">:</p>
                                 </td>
                                 <td style="width: 10%;">
-                                    <p class="font-weight-bold pFormAdds" id="status4field"></p>
+                                    <p class="font-weight-bold pFormAdds" id="status4field">0</p>
                                 </td>
                                 <td style="width: 17.5%;">
                                     <p class="font-weight-semibold pFormAdds">Join Confirm</p>
@@ -664,7 +664,7 @@
                                     <p class="font-weight-semibold pFormAdds">:</p>
                                 </td>
                                 <td style="width: 10%;">
-                                    <p class="font-weight-bold pFormAdds" id="status6field"></p>
+                                    <p class="font-weight-bold pFormAdds" id="status6field">0</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -936,7 +936,7 @@
         $("#statusField").html("Active")
         $("#positionNameField").html(hiringOrder.positionName)
         $("#jobTitleField").html(hiringOrder.jobTitle)
-        $("#placementField").html(hiringOrder.placement)
+        $("#placementField").html(hiringOrder.placement)    
     </script>
 
     <!-- Candidate Recommendation -->
@@ -953,50 +953,53 @@
         candidate = JSON.parse(candidate)
         dfCandidate = JSON.parse(dfCandidate)
 
+        // Modal Details
+        $("#descField").html(hiringOrder.description)
+        $("#requirementField").html(hiringOrder.requirement)
 
+        // Modal Role Model
         targetRow = ""
         $.each(candidate, function (index, value) {
             targetRow += `
             <tr>
                 <td>${index + 1}</td>
                 <td>${value.name} - ${value.nik}</td>
-                <td>${value.age}</td>
-                <td>${value.gender}</td>
-                <td>${value.marital}</td>
-                <td>${value.levelEdu}</td>
+                <td class="center">${value.age}</td>
+                <td class="center">${value.gender}</td>
+                <td class="center">${value.marital}</td>
+                <td class="center">${value.levelEdu}</td>
                 <td>${value.majoring}</td>
-                <td>${value.exper}</td>
+                <td class="center">${value.exper}</td>
                 <td>${value.last_position}</td>
             </tr>`
         })
         $("#dataTableRoleModel").html(targetRow)
 
-
-        recommendationRow = ""
-        $.each(result, function (index, value) {
-            recommendationRow += `
-            <tr>
-                <td>${index + 1}</td>
-                <td><div class="row"><div style="margin: 3.25px 8px !important;"><input type="checkbox" id="checkbox` + (index+1) + `" name="checkbox" onchange="toggleButton()"></div></td>
-                <td>${value[0]}</td>
-                <td>${value[1]}</td>
-                <td>${value[2]}</td>
-                <td>${value[3]}</td>
-                <td>${value[4]}</td>
-                <td></td>
-                <td>${value[7]}</td>
-                <td>${value[5]}</td>
-                <td></td>
-                <td></td>
-                <td>${value[8]}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>`
-        })
-        $("#tableApplicantDetailData-tab2").html(recommendationRow)
+        // recommendationRow = ""
+        // $.each(result, function (index, value) {
+        //     recommendationRow += `
+        //     <tr>
+        //         <td>${index + 1}</td>
+        //         <td><div class="row"><div style="margin: 3.25px 8px !important;"><input type="checkbox" id="checkbox` + (index + 1) + `" name="checkbox" onchange="toggleButton()"></div></td>
+        //         <td>${value[0]}</td>
+        //         <td>${value[1]}</td>
+        //         <td>${value[2]}</td>
+        //         <td>${value[3]}</td>
+        //         <td>${value[4]}</td>
+        //         <td></td>
+        //         <td>${value[7]}</td>
+        //         <td>${value[5]}</td>
+        //         <td></td>
+        //         <td></td>
+        //         <td>${value[8]}</td>
+        //         <td></td>
+        //         <td></td>
+        //         <td></td>
+        //         <td></td>
+        //         <td></td>
+        //     </tr>`
+        // })
+        // $("#tableApplicantDetailData-tab2").html(recommendationRow)
 
         recommendationRow = ""
         for (let i = 0; i < dfCandidate.length; i++) {
@@ -1010,20 +1013,20 @@
                     </td>
                     <td>${result[i][0]}</td>
                     <td>${dfCandidate[i].NAMA} - ${dfCandidate[i].No}</td>
-                    <td>${dfCandidate[i].KELAMIN}</td>
-                    <td>${dfCandidate[i].UMUR}</td>
-                    <td>${dfCandidate[i].STATUS}</td>
+                    <td class="center">${dfCandidate[i].KELAMIN}</td>
+                    <td class="center">${dfCandidate[i].UMUR}</td>
+                    <td class="center">${dfCandidate[i].STATUS}</td>
                     <td>${dfCandidate[i]["CURRENT CITY"]}</td>
                     <td>${dfCandidate[i]["STUDY MAJOR"]}</td>
-                    <td>${dfCandidate[i].PENDIDIKAN}</td>
+                    <td class="center">${dfCandidate[i].PENDIDIKAN}</td>
                     <td>${dfCandidate[i].INSTITUTION}</td>
-                    <td>${dfCandidate[i].GPA}</td>
+                    <td class="center">${dfCandidate[i].GPA}</td>
                     <td>${dfCandidate[i]["LAST EXPERIENCE POSITION"]} - (${dfCandidate[i].EXPERIENCE})</td>
-                    <td>${dfCandidate[i].EXPECTED_SALARY}</td>
-                    <td>${dfCandidate[i].PERSONALITY}</td>
-                    <td>${dfCandidate[i].INTELLIGENT}</td>
+                    <td class="center">Rp. ${dfCandidate[i].EXPECTED_SALARY},-</td>
+                    <td class="center">${dfCandidate[i].PERSONALITY}</td>
+                    <td class="center">${dfCandidate[i].INTELLIGENT}</td>
                     <td>${dfCandidate[i].APPLY_ON}</td>
-                    <td>${dfCandidate[i]["STATUS.1"]}</td>
+                    <td class="center">${dfCandidate[i]["STATUS.1"]}</td>
                 </tr>`
         }
         $("#tableApplicantDetailData-tab2").html(recommendationRow)
@@ -1032,68 +1035,9 @@
         $("#tableApplicantDetail-tab2").DataTable({
             "lengthChange": true,
             "scrollCollapse": true,
+            'scrollX': true,
+            'autoWidth': true,
         });
-    </script>
-
-    <script>
-        // $(document).ready(function () {
-        //     var idDetail = localStorage.getItem('idDetail')
-
-        //     google.script.run.withSuccessHandler(function (data) {
-        //         // Condition Table
-        //         if (data[0][2] == "Talent Acquisition Filled") {
-        //             $("#ai-recom-tab").hide();
-        //         } else {
-        //             $("#ai-recom-tab").show();
-        //         }
-
-        //         $("#typeField").text(data[0][1]);
-        //         $("#positionNameField").text(data[0][5]);
-        //         $("#statusField").text(data[0][22]);
-        //         $("#pathwayField").text(data[0][2]);
-        //         $("#jobTitleField").text(data[0][7]);
-        //         $("#placementField").text(data[0][9]);
-        //         $("#periodField").text(data[0][10] + " - " + data[0][11]);
-        //         if (data[0][4] != "" && data[0][4] != null) {
-        //             var sources = data[0][3] + " - (" + data[0][4] + ")";
-        //             $("#sourceField").text(sources);
-        //         } else {
-        //             $("#sourceField").text(data[0][3]);
-        //         }
-
-        //         // Modal
-        //         $("#descField").text(data[0][20]);
-        //         $("#requirementField").text(data[0][21]);
-
-        //         $("#status1field").text(data[0][14]);
-        //         $("#status2field").text(data[0][15]);
-        //         $("#status3field").text(data[0][16]);
-        //         $("#status4field").text(data[0][17]);
-        //         $("#status5field").text(data[0][18]);
-        //         $("#status6field").text(data[0][19]);
-        //     }).getDetailHiringOrder(idDetail);
-
-        //     google.script.run.withSuccessHandler(function (indexhtml) {
-        //         $("#tableApplicantDetailData-tab1").html(indexhtml);
-
-        //         $("#tableApplicantDetail-tab1").DataTable({
-        //             "lengthChange": true,
-        //             "scrollX": true,
-        //             "autoWidth": true,
-        //             "scrollCollapse": true,
-        //         });
-
-        //         $("#tableApplicantDetail-tab2").DataTable({
-        //             "lengthChange": true,
-        //             "scrollX": true,
-        //             "autoWidth": true,
-        //             "scrollCollapse": true,
-        //         });
-        //     }).displayDataTableTAFilledDetail(idDetail);
-
-        //     // Initial check in case checkboxes are pre-checked on page load
-
-        // });
     </script>
 </body>
 
