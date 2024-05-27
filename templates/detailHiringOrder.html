@@ -1009,23 +1009,25 @@
                         </div>
                     </td>
                     <td>${result[i][0]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
-                    <td>${dfCandidate[i]}</td>
+                    <td>${dfCandidate[i].NAMA} - ${dfCandidate[i].No}</td>
+                    <td>${dfCandidate[i].KELAMIN}</td>
+                    <td>${dfCandidate[i].UMUR}</td>
+                    <td>${dfCandidate[i].STATUS}</td>
+                    <td>${dfCandidate[i]["CURRENT CITY"]}</td>
+                    <td>${dfCandidate[i]["STUDY MAJOR"]}</td>
+                    <td>${dfCandidate[i].PENDIDIKAN}</td>
+                    <td>${dfCandidate[i].INSTITUTION}</td>
+                    <td>${dfCandidate[i].GPA}</td>
+                    <td>${dfCandidate[i]["LAST EXPERIENCE POSITION"]} - (${dfCandidate[i].EXPERIENCE})</td>
+                    <td>${dfCandidate[i].EXPECTED_SALARY}</td>
+                    <td>${dfCandidate[i].PERSONALITY}</td>
+                    <td>${dfCandidate[i].INTELLIGENT}</td>
+                    <td>${dfCandidate[i].APPLY_ON}</td>
+                    <td>${dfCandidate[i]["STATUS.1"]}</td>
                 </tr>`
         }
+        $("#tableApplicantDetailData-tab2").html(recommendationRow)
+
 
         $("#tableApplicantDetail-tab2").DataTable({
             "lengthChange": true,
