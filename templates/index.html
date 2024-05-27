@@ -1054,6 +1054,23 @@
 
             // Button Add Data
             $("#btnAdd").click(function () {
+                let hiringOrder = {
+                    typePos: $('input[name="typePos"]:checked').val(),
+                    pathway: $('input[name="pathway"]:checked').val(),
+                    sources: $('input[name="sources"]:checked').val(),
+                    docFPPK: $("#docFPPK").val(),
+                    positionName: $("#positionName").val(),
+                    jobTitle: $("#JobTitle option:selected").text(),
+                    placement: $("#placementJob").val(),
+                    description: $("#description").val(),
+                    requirement: $("#requirement").val(),
+                    tglStart: $("#tgl-start").val(),
+                    tglEnd: $("#tgl-end").val(),
+                }
+
+                console.log(hiringOrder)
+                localStorage.setItem("hiringOrder", JSON.stringify(hiringOrder))
+
                 fetch('/recommended_candidates', {
                     method: 'POST',
                     headers: {

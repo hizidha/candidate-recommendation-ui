@@ -926,6 +926,21 @@
     </script>
 
     <script>
+        let hiringOrder = JSON.parse(localStorage.getItem("hiringOrder"))
+        console.log(hiringOrder)
+
+        $("#typeField").html(hiringOrder.typePos)
+        $("#pathwayField").html(hiringOrder.pathway)
+        $("#sourceField").html(hiringOrder.sources)
+        $("#periodField").html(`${hiringOrder.tglStart.split("-").reverse().join("/")} - ${hiringOrder.tglEnd.split("-").reverse().join("/")}`)
+        $("#statusField").html("Active")
+        $("#positionNameField").html(hiringOrder.positionName)
+        $("#jobTitleField").html(hiringOrder.jobTitle)
+        $("#placementField").html(hiringOrder.placement)
+    </script>
+
+    <!-- Candidate Recommendation -->
+    <script>
         let result = localStorage.getItem('recommended_candidate');
         let candidate = localStorage.getItem('target_candidate');
         let dfCandidate = localStorage.getItem('recommended_df');
