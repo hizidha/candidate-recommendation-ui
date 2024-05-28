@@ -119,6 +119,14 @@
         .dtr-control.control::before {
             margin-top: 10px !important;
         }
+
+        .dataTables_scrollHeadInner {
+            width: 100% !important;
+        }
+
+        .dataTables_scrollHeadInner table {
+            width: 100% !important;
+        }
     </style>
 </head>
 
@@ -503,7 +511,7 @@
                                                         <p class="detailP" style="margin: 0;">Select All</p>
                                                     </div>
                                                 </th>
-                                                <th rowspan="2">Similirity</th>
+                                                <th rowspan="2">Similarity</th>
                                                 <th rowspan="2">Candidate Name & NIK</th>
                                                 <th rowspan="2">Gender</th>
                                                 <th rowspan="2">Age</th>
@@ -927,7 +935,7 @@
 
     <script>
         let hiringOrder = JSON.parse(localStorage.getItem("hiringOrder"))
-        console.log(hiringOrder)
+        console.log("hiringOrder:", hiringOrder)
 
         $("#typeField").html(hiringOrder.typePos)
         $("#pathwayField").html(hiringOrder.pathway)
@@ -941,26 +949,27 @@
 
     <!-- Candidate Recommendation -->
     <script>
-        let result = localStorage.getItem('recommended_candidate');
-        let candidate = localStorage.getItem('target_candidate');
-        let dfCandidate = localStorage.getItem('recommended_df');
+        $(document).ready(function () {
+            let result = localStorage.getItem('recommended_candidate');
+            let candidate = localStorage.getItem('target_candidate');
+            let dfCandidate = localStorage.getItem('recommended_df');
 
-        console.log(JSON.parse(result));
-        console.log(JSON.parse(candidate));
-        console.log(JSON.parse(dfCandidate));
+            console.log(JSON.parse(result));
+            console.log(JSON.parse(candidate));
+            console.log(JSON.parse(dfCandidate));
 
-        result = JSON.parse(result)
-        candidate = JSON.parse(candidate)
-        dfCandidate = JSON.parse(dfCandidate)
+            result = JSON.parse(result)
+            candidate = JSON.parse(candidate)
+            dfCandidate = JSON.parse(dfCandidate)
 
-        // Modal Details
-        $("#descField").html(hiringOrder.description)
-        $("#requirementField").html(hiringOrder.requirement)
+            // Modal Details
+            $("#descField").html(hiringOrder.description)
+            $("#requirementField").html(hiringOrder.requirement)
 
-        // Modal Role Model
-        targetRow = ""
-        $.each(candidate, function (index, value) {
-            targetRow += `
+            // Modal Role Model
+            targetRow = ""
+            $.each(candidate, function (index, value) {
+                targetRow += `
             <tr>
                 <td>${index + 1}</td>
                 <td>${value.name} - ${value.nik}</td>
@@ -972,38 +981,38 @@
                 <td class="center">${value.exper}</td>
                 <td>${value.last_position}</td>
             </tr>`
-        })
-        $("#dataTableRoleModel").html(targetRow)
+            })
+            $("#dataTableRoleModel").html(targetRow)
 
-        // recommendationRow = ""
-        // $.each(result, function (index, value) {
-        //     recommendationRow += `
-        //     <tr>
-        //         <td>${index + 1}</td>
-        //         <td><div class="row"><div style="margin: 3.25px 8px !important;"><input type="checkbox" id="checkbox` + (index + 1) + `" name="checkbox" onchange="toggleButton()"></div></td>
-        //         <td>${value[0]}</td>
-        //         <td>${value[1]}</td>
-        //         <td>${value[2]}</td>
-        //         <td>${value[3]}</td>
-        //         <td>${value[4]}</td>
-        //         <td></td>
-        //         <td>${value[7]}</td>
-        //         <td>${value[5]}</td>
-        //         <td></td>
-        //         <td></td>
-        //         <td>${value[8]}</td>
-        //         <td></td>
-        //         <td></td>
-        //         <td></td>
-        //         <td></td>
-        //         <td></td>
-        //     </tr>`
-        // })
-        // $("#tableApplicantDetailData-tab2").html(recommendationRow)
+            // recommendationRow = ""
+            // $.each(result, function (index, value) {
+            //     recommendationRow += `
+            //     <tr>
+            //         <td>${index + 1}</td>
+            //         <td><div class="row"><div style="margin: 3.25px 8px !important;"><input type="checkbox" id="checkbox` + (index + 1) + `" name="checkbox" onchange="toggleButton()"></div></td>
+            //         <td>${value[0]}</td>
+            //         <td>${value[1]}</td>
+            //         <td>${value[2]}</td>
+            //         <td>${value[3]}</td>
+            //         <td>${value[4]}</td>
+            //         <td></td>
+            //         <td>${value[7]}</td>
+            //         <td>${value[5]}</td>
+            //         <td></td>
+            //         <td></td>
+            //         <td>${value[8]}</td>
+            //         <td></td>
+            //         <td></td>
+            //         <td></td>
+            //         <td></td>
+            //         <td></td>
+            //     </tr>`
+            // })
+            // $("#tableApplicantDetailData-tab2").html(recommendationRow)
 
-        recommendationRow = ""
-        for (let i = 0; i < dfCandidate.length; i++) {
-            recommendationRow += `
+            recommendationRow = ""
+            for (let i = 0; i < dfCandidate.length; i++) {
+                recommendationRow += `
                 <tr>
                     <td>${i + 1}</td>
                     <td>
@@ -1021,23 +1030,24 @@
                     <td class="center">${dfCandidate[i].PENDIDIKAN}</td>
                     <td>${dfCandidate[i].INSTITUTION}</td>
                     <td class="center">${dfCandidate[i].GPA}</td>
-                    <td>${dfCandidate[i]["LAST EXPERIENCE POSITION"]} - (${dfCandidate[i].EXPERIENCE})</td>
+                    <td>${dfCandidate[i]["LAST EXPERIENCE POSITION"]} (${dfCandidate[i].EXPERIENCE})</td>
                     <td class="center">Rp. ${dfCandidate[i].EXPECTED_SALARY},-</td>
                     <td class="center">${dfCandidate[i].PERSONALITY}</td>
                     <td class="center">${dfCandidate[i].INTELLIGENT}</td>
                     <td>${dfCandidate[i].APPLY_ON}</td>
                     <td class="center">${dfCandidate[i]["STATUS.1"]}</td>
                 </tr>`
-        }
-        $("#tableApplicantDetailData-tab2").html(recommendationRow)
+            }
+            $("#tableApplicantDetailData-tab2").html(recommendationRow)
 
 
-        $("#tableApplicantDetail-tab2").DataTable({
-            "lengthChange": true,
-            "scrollCollapse": true,
-            'scrollX': true,
-            'autoWidth': true,
-        });
+            $("#tableApplicantDetail-tab2").DataTable({
+                "lengthChange": true,
+                "scrollX": true,
+                "scrollCollapse": true,
+                "autoWidth": false,
+            });
+        })
     </script>
 </body>
 
