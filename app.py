@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, render_template
+from flask_sqlalchemy import SQLAlchemy
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 import json
@@ -8,6 +9,45 @@ from function import recommend_candidates1, recommend_candidates2
 
 
 app = Flask(__name__)
+
+# Configure the SQLAlchemy part of the application instance
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/candidate_recommendation'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Create the SQLAlchemy db instance
+db = SQLAlchemy(app)
+
+# Adjust according to your own database
+class CandidateRecommendation(db.Model):
+    __tablename__ = "data recommendation candidate"
+    id = db.Column(db.Integer, primary_key=True)
+    nama = db.Column(db.String(225), primary_key=False)
+    lokasi = db.Column(db.String(225), primary_key=False)
+    unit = db.Column(db.String(225), primary_key=False)
+    lvl_jabatan = db.Column(db.String(225), primary_key=False)
+    jabatan = db.Column(db.String(225), primary_key=False)
+    divisi = db.Column(db.String(225), primary_key=False)
+    marital_status = db.Column(db.String(225), primary_key=False)
+    pendidikan = db.Column(db.String(225), primary_key=False)
+    umur = db.Column(db.Integer, primary_key=False)
+    kelamin = db.Column(db.String(225), primary_key=False)
+    study_major = db.Column(db.String(225), primary_key=False)
+    exp = db.Column(db.String(225), primary_key=False)
+    last_position = db.Column(db.String(225), primary_key=False)
+    current_city = db.Column(db.String(225), primary_key=False)
+    institution = db.Column(db.String(225), primary_key=False)
+    gpa = db.Column(db.Float, primary_key=False)
+    expected_salary = db.Column(db.Integer, primary_key=False)
+    personality = db.Column(db.String(225), primary_key=False)
+    intelligent = db.Column(db.String(225), primary_key=False)
+    apply_on = db.Column(db.String(225), primary_key=False)
+    status = db.Column(db.String(225), primary_key=False)
+    
+    def __repr__(self):
+        result = ""
+        result += f"data recommendation candidate('{self.id}', '{self.nama}', '{self.lokasi}', '{self.unit}', '{self.lvl_jabatan}', '{self.jabatan}', '{self.divisi}', '{self.marital_status}', '{self.pendidikan}', '{self.umur}', '{self.kelamin}', '{self.study_major}', '{self.exp}', '{self.last_position}', '{self.current_city}', '{self.institution}', '{self.gpa}', '{self.expected_salary}', '{self.personality}', '{self.intelligent}', '{self.apply_on}', '{self.status}')"
+        return result
+
 
 @app.route('/')
 def index():
@@ -43,32 +83,76 @@ def recommend_candidates_route():
     # Your provided code for processing candidate recommendation
     dfExcel = pd.read_excel("./data/Data Recommendation Candidate.xlsx")
 
-    dfCandidate = dfExcel.copy()
+    # Take data from database
+    candidates = CandidateRecommendation.query.all()
+    database = [{
+        'id': candidate.id,
+        'nama': candidate.nama,
+        'lokasi': candidate.lokasi,
+        'unit': candidate.unit,
+        'lvl_jabatan': candidate.lvl_jabatan,
+        'jabatan': candidate.jabatan,
+        'divisi': candidate.divisi,
+        'marital_status': candidate.marital_status,
+        'pendidikan': candidate.pendidikan,
+        'umur': candidate.umur,
+        'kelamin': candidate.kelamin,
+        'study_major': candidate.study_major,
+        'exp': candidate.exp,
+        'last_position': candidate.last_position,
+        'current_city': candidate.current_city,
+        'institution': candidate.institution,
+        'gpa': candidate.gpa,
+        'expected_salary': candidate.expected_salary,
+        'personality': candidate.personality,
+        'intelligent': candidate.intelligent,
+        'apply_on': candidate.apply_on,
+        'status': candidate.status
+        } for candidate in candidates]
+    
+    dfSQL = pd.DataFrame(database)
 
+    # dfCandidate = dfExcel.copy()
+    dfCandidate = dfSQL.copy()
+
+    # untuk excel
+    # new_column_names = {
+    # 'NAMA': 'Name',
+    # 'MARITAL STATUS': 'Marital_Status',
+    # 'PENDIDIKAN': 'Education_Level',
+    # 'UMUR': 'Age',
+    # 'KELAMIN': 'Gender',
+    # 'STUDY MAJOR': 'Study_Major',
+    # 'EXPERIENCE': 'Experience',
+    # 'LAST EXPERIENCE POSITION': 'Last_Position'
+    # }
+
+    # untuk database
     new_column_names = {
-    'NAMA': 'Name',
-    'STATUS': 'Marital_Status',
-    'PENDIDIKAN':
-    'Education_Level',
-    'UMUR': 'Age',
-    'KELAMIN': 'Gender',
-    'STUDY MAJOR':
-    'Study_Major',
-    'EXPERIENCE': 'Experience',
-    'LAST EXPERIENCE POSITION': 'Last_Position'
+    'nama': 'Name',
+    'marital_status': 'Marital_Status',
+    'pendidikan': 'Education_Level',
+    'umur': 'Age',
+    'kelamin': 'Gender',
+    'study_major': 'Study_Major',
+    'exp': 'Experience',
+    'last_position': 'Last_Position'
     }
 
     dfCandidate = dfCandidate.rename(columns=new_column_names)
 
-    dropped_column = ['No', 'LOKASI', 'UNIT', 'LEVEL JABATAN', 'JABATAN', 'DIVISI']
+    # dropped_column = ['No', 'LOKASI', 'UNIT', 'LEVEL JABATAN', 'JABATAN', 'DIVISI']
+    dropped_column = ['id', 'lokasi', 'unit', 'lvl_jabatan', 'jabatan', 'divisi']
 
     dfCandidate.drop(dropped_column, axis=1, inplace=True)
 
     # Define encoding dictionaries
     encode_1 = {'SD': 0, 'SMP': 1, 'SMA': 2, 'SLTA': 2, 'STM': 2, 'SMK': 2, 'D1': 3, 'D2': 4, 'D3': 5, 'D4': 6, 'S1': 6, 'S2': 7, 'S3': 8}
-    encode_2 = {'Free': 0, 'Pria': 1, 'Wanita': 2}
+    encode_2 = {'Free': 0, 'Pria': 1, 'Wanita': 2, "Male": 1, "Female": 2}
     encode_3 = {'Single': 0, 'Menikah': 1, 'Duda': 2, 'Janda': 2}
     encode_4 = {'< 6 bulan': 0, '< 1 tahun': 1, '1-2 tahun': 2, '2-4 tahun': 3, '> 4 tahun': 4}
+
+    # return jsonify(dfCandidate.to_dict(orient="records"))
 
     # Apply encoding
     dfCandidate['Education_Level_en'] = dfCandidate['Education_Level'].map(encode_1)
@@ -84,8 +168,11 @@ def recommend_candidates_route():
     target_candidate = []
     recommended_candidates = []
 
+    # return jsonify(dfCandidate.to_dict(orient="records"))
+    # return data
+
     if len(data) == 1:
-      # Example usage:
+      # Excel usage
       target_candidate = [
         {
           "Gender": encodeGender(data[0]['Gender']),
@@ -97,6 +184,8 @@ def recommend_candidates_route():
           "Last Position": data[0]['Last_Position']
         }
       ]
+
+      # return target_candidate
     
       # Recommendation
       recommended_candidates = recommend_candidates1(target_candidate[0], dfCandidate, vectorizer)
@@ -112,6 +201,8 @@ def recommend_candidates_route():
             "Last Position": data_member['Last_Position']
         }
       target_candidate.append(target_member)
+
+      # return target_candidate
 
       # Recommendation
       recommended_candidates = recommend_candidates2(target_candidate, dfCandidate, vectorizer)

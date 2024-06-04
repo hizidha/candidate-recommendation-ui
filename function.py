@@ -10,7 +10,7 @@ def clean_text(text):
     return text
 
 def encodeGender(gender):
-    encode = {'Free': 0, 'Pria': 1, 'Wanita': 2}
+    encode = {'Free': 0, 'Pria': 1, 'Wanita': 2, "Male": 1, "Female": 2}
     if isinstance(gender, str):
         value = encode.get(gender.title(), -1)
     else:
