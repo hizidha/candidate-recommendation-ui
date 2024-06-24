@@ -98,6 +98,8 @@ def recommend_candidates1(target_candidate, candidates_data, vectorizer):
     similarities.sort(key=lambda x: x[0], reverse=True)
     return similarities
 
+
+
 # Function to recommend candidates based on similarity to a list of target candidates
 def recommend_candidates2(target_candidates, candidates_data, vectorizer):
     combined_similarity = {}

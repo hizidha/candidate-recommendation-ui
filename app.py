@@ -112,7 +112,12 @@ def recommend_candidates_route():
     
     dfSQL = pd.DataFrame(database)
 
-    # dfCandidate = dfExcel.copy()
+    # GANTI SESUAI KEBUTUHAN
+
+    # untuk excel
+    # dfCandidate = dfExcel.copy()\
+
+    # untuk database
     dfCandidate = dfSQL.copy()
 
     # untuk excel
@@ -141,8 +146,12 @@ def recommend_candidates_route():
 
     dfCandidate = dfCandidate.rename(columns=new_column_names)
 
+    # untuk excel
     # dropped_column = ['No', 'LOKASI', 'UNIT', 'LEVEL JABATAN', 'JABATAN', 'DIVISI']
+    
+    # untuk database
     dropped_column = ['id', 'lokasi', 'unit', 'lvl_jabatan', 'jabatan', 'divisi']
+    # GANTI SESUAI KEBUTUHAN
 
     dfCandidate.drop(dropped_column, axis=1, inplace=True)
 
