@@ -11,42 +11,42 @@ from function import recommend_candidates1, recommend_candidates2
 app = Flask(__name__)
 
 # Configure the SQLAlchemy part of the application instance
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/candidate_recommendation'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/candidate_recommendation'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Create the SQLAlchemy db instance
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 # Adjust according to your own database
-class CandidateRecommendation(db.Model):
-    __tablename__ = "data recommendation candidate"
-    id = db.Column(db.Integer, primary_key=True)
-    nama = db.Column(db.String(225), primary_key=False)
-    lokasi = db.Column(db.String(225), primary_key=False)
-    unit = db.Column(db.String(225), primary_key=False)
-    lvl_jabatan = db.Column(db.String(225), primary_key=False)
-    jabatan = db.Column(db.String(225), primary_key=False)
-    divisi = db.Column(db.String(225), primary_key=False)
-    marital_status = db.Column(db.String(225), primary_key=False)
-    pendidikan = db.Column(db.String(225), primary_key=False)
-    umur = db.Column(db.Integer, primary_key=False)
-    kelamin = db.Column(db.String(225), primary_key=False)
-    study_major = db.Column(db.String(225), primary_key=False)
-    exp = db.Column(db.String(225), primary_key=False)
-    last_position = db.Column(db.String(225), primary_key=False)
-    current_city = db.Column(db.String(225), primary_key=False)
-    institution = db.Column(db.String(225), primary_key=False)
-    gpa = db.Column(db.Float, primary_key=False)
-    expected_salary = db.Column(db.Integer, primary_key=False)
-    personality = db.Column(db.String(225), primary_key=False)
-    intelligent = db.Column(db.String(225), primary_key=False)
-    apply_on = db.Column(db.String(225), primary_key=False)
-    status = db.Column(db.String(225), primary_key=False)
+# class CandidateRecommendation(db.Model):
+#     __tablename__ = "data recommendation candidate"
+#     id = db.Column(db.Integer, primary_key=True)
+#     nama = db.Column(db.String(225), primary_key=False)
+#     lokasi = db.Column(db.String(225), primary_key=False)
+#     unit = db.Column(db.String(225), primary_key=False)
+#     lvl_jabatan = db.Column(db.String(225), primary_key=False)
+#     jabatan = db.Column(db.String(225), primary_key=False)
+#     divisi = db.Column(db.String(225), primary_key=False)
+#     marital_status = db.Column(db.String(225), primary_key=False)
+#     pendidikan = db.Column(db.String(225), primary_key=False)
+#     umur = db.Column(db.Integer, primary_key=False)
+#     kelamin = db.Column(db.String(225), primary_key=False)
+#     study_major = db.Column(db.String(225), primary_key=False)
+#     exp = db.Column(db.String(225), primary_key=False)
+#     last_position = db.Column(db.String(225), primary_key=False)
+#     current_city = db.Column(db.String(225), primary_key=False)
+#     institution = db.Column(db.String(225), primary_key=False)
+#     gpa = db.Column(db.Float, primary_key=False)
+#     expected_salary = db.Column(db.Integer, primary_key=False)
+#     personality = db.Column(db.String(225), primary_key=False)
+#     intelligent = db.Column(db.String(225), primary_key=False)
+#     apply_on = db.Column(db.String(225), primary_key=False)
+#     status = db.Column(db.String(225), primary_key=False)
     
-    def __repr__(self):
-        result = ""
-        result += f"data recommendation candidate('{self.id}', '{self.nama}', '{self.lokasi}', '{self.unit}', '{self.lvl_jabatan}', '{self.jabatan}', '{self.divisi}', '{self.marital_status}', '{self.pendidikan}', '{self.umur}', '{self.kelamin}', '{self.study_major}', '{self.exp}', '{self.last_position}', '{self.current_city}', '{self.institution}', '{self.gpa}', '{self.expected_salary}', '{self.personality}', '{self.intelligent}', '{self.apply_on}', '{self.status}')"
-        return result
+#     def __repr__(self):
+#         result = ""
+#         result += f"data recommendation candidate('{self.id}', '{self.nama}', '{self.lokasi}', '{self.unit}', '{self.lvl_jabatan}', '{self.jabatan}', '{self.divisi}', '{self.marital_status}', '{self.pendidikan}', '{self.umur}', '{self.kelamin}', '{self.study_major}', '{self.exp}', '{self.last_position}', '{self.current_city}', '{self.institution}', '{self.gpa}', '{self.expected_salary}', '{self.personality}', '{self.intelligent}', '{self.apply_on}', '{self.status}')"
+#         return result
 
 
 @app.route('/')
@@ -84,73 +84,74 @@ def recommend_candidates_route():
     dfExcel = pd.read_excel("./data/Data Recommendation Candidate.xlsx")
 
     # Take data from database
-    candidates = CandidateRecommendation.query.all()
-    database = [{
-        'id': candidate.id,
-        'nama': candidate.nama,
-        'lokasi': candidate.lokasi,
-        'unit': candidate.unit,
-        'lvl_jabatan': candidate.lvl_jabatan,
-        'jabatan': candidate.jabatan,
-        'divisi': candidate.divisi,
-        'marital_status': candidate.marital_status,
-        'pendidikan': candidate.pendidikan,
-        'umur': candidate.umur,
-        'kelamin': candidate.kelamin,
-        'study_major': candidate.study_major,
-        'exp': candidate.exp,
-        'last_position': candidate.last_position,
-        'current_city': candidate.current_city,
-        'institution': candidate.institution,
-        'gpa': candidate.gpa,
-        'expected_salary': candidate.expected_salary,
-        'personality': candidate.personality,
-        'intelligent': candidate.intelligent,
-        'apply_on': candidate.apply_on,
-        'status': candidate.status
-        } for candidate in candidates]
+    # candidates = CandidateRecommendation.query.all()
+    # database = [{
+    #     'id': candidate.id,
+    #     'nama': candidate.nama,
+    #     'lokasi': candidate.lokasi,
+    #     'unit': candidate.unit,
+    #     'lvl_jabatan': candidate.lvl_jabatan,
+    #     'jabatan': candidate.jabatan,
+    #     'divisi': candidate.divisi,
+    #     'marital_status': candidate.marital_status,
+    #     'pendidikan': candidate.pendidikan,
+    #     'umur': candidate.umur,
+    #     'kelamin': candidate.kelamin,
+    #     'study_major': candidate.study_major,
+    #     'exp': candidate.exp,
+    #     'last_position': candidate.last_position,
+    #     'current_city': candidate.current_city,
+    #     'institution': candidate.institution,
+    #     'gpa': candidate.gpa,
+    #     'expected_salary': candidate.expected_salary,
+    #     'personality': candidate.personality,
+    #     'intelligent': candidate.intelligent,
+    #     'apply_on': candidate.apply_on,
+    #     'status': candidate.status
+    #     } for candidate in candidates]
     
-    dfSQL = pd.DataFrame(database)
+    # dfSQL = pd.DataFrame(database)
 
     # GANTI SESUAI KEBUTUHAN
 
     # untuk excel
-    # dfCandidate = dfExcel.copy()\
+    dfCandidate = dfExcel.copy()
 
     # untuk database
-    dfCandidate = dfSQL.copy()
+    # dfCandidate = dfSQL.copy()
 
     # untuk excel
-    # new_column_names = {
-    # 'NAMA': 'Name',
-    # 'MARITAL STATUS': 'Marital_Status',
-    # 'PENDIDIKAN': 'Education_Level',
-    # 'UMUR': 'Age',
-    # 'KELAMIN': 'Gender',
-    # 'STUDY MAJOR': 'Study_Major',
-    # 'EXPERIENCE': 'Experience',
-    # 'LAST EXPERIENCE POSITION': 'Last_Position'
-    # }
+    new_column_names = {
+    'NAMA': 'Name',
+    'MARITAL STATUS': 'Marital_Status',
+    'PENDIDIKAN': 'Education_Level',
+    'UMUR': 'Age',
+    'KELAMIN': 'Gender',
+    'STUDY MAJOR': 'Study_Major',
+    'EXPERIENCE': 'Experience',
+    'LAST EXPERIENCE POSITION': 'Last_Position',
+    'COMPETENCY': 'Competency'
+    }
 
     # untuk database
-    new_column_names = {
-    'nama': 'Name',
-    'marital_status': 'Marital_Status',
-    'pendidikan': 'Education_Level',
-    'umur': 'Age',
-    'kelamin': 'Gender',
-    'study_major': 'Study_Major',
-    'exp': 'Experience',
-    'last_position': 'Last_Position'
-    }
+    # new_column_names = {
+    # 'nama': 'Name',
+    # 'marital_status': 'Marital_Status',
+    # 'pendidikan': 'Education_Level',
+    # 'umur': 'Age',
+    # 'kelamin': 'Gender',
+    # 'study_major': 'Study_Major',
+    # 'exp': 'Experience',
+    # 'last_position': 'Last_Position'
+    # }
 
     dfCandidate = dfCandidate.rename(columns=new_column_names)
 
     # untuk excel
-    # dropped_column = ['No', 'LOKASI', 'UNIT', 'LEVEL JABATAN', 'JABATAN', 'DIVISI']
-    
+    dropped_column = ['No', 'LOKASI', 'UNIT', 'LEVEL JABATAN', 'JABATAN', 'DIVISI']
+
     # untuk database
-    dropped_column = ['id', 'lokasi', 'unit', 'lvl_jabatan', 'jabatan', 'divisi']
+    # dropped_column = ['id', 'lokasi', 'unit', 'lvl_jabatan', 'jabatan', 'divisi']
     # GANTI SESUAI KEBUTUHAN
 
     dfCandidate.drop(dropped_column, axis=1, inplace=True)
@@ -170,7 +171,7 @@ def recommend_candidates_route():
     dfCandidate['Experience_en'] = dfCandidate['Experience'].map(encode_4)
 
     # Preprocess candidates_data and target_candidate
-    text_data = [" ".join([data["Study_Major"], data["Last_Position"]]) for index, data in dfCandidate.iterrows()]
+    text_data = [" ".join([data["Study_Major"], data["Last_Position"], data["Competency"]]) for index, data in dfCandidate.iterrows()]
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(text_data)
 
@@ -190,7 +191,8 @@ def recommend_candidates_route():
           "Education Level": encodeEducation(data[0]['Education_Level']),
           "Experience": encodeExperience(int(data[0]['Experience'])),
           "Study Major": data[0]['Study_Major'],
-          "Last Position": data[0]['Last_Position']
+          "Last Position": data[0]['Last_Position'],
+          "Competency": data[0]['Competency']
         }
       ]
 
@@ -207,7 +209,8 @@ def recommend_candidates_route():
             "Education Level": encodeEducation(data_member['Education_Level']),
             "Experience": encodeExperience(int(data_member['Experience'])),
             "Study Major": data_member['Study_Major'],
-            "Last Position": data_member['Last_Position']
+            "Last Position": data_member['Last_Position'],
+            "Competency": data_member['Competency']
         }
       target_candidate.append(target_member)
 
@@ -218,7 +221,7 @@ def recommend_candidates_route():
 
     indicesArr = []
     for candidate in recommended_candidates:
-       indicesArr.append(candidate[9])
+       indicesArr.append(candidate[10])
 
     recommended_df = dfExcel.iloc[indicesArr].to_dict(orient="records")
 

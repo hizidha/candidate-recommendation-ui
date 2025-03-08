@@ -869,6 +869,11 @@
                                                                     style="font-size: 14px; margin: 0; padding: 5px 0;">
                                                                     Last Position</p>
                                                             </td>
+                                                            <td>
+                                                                <p class="font-weight-bold"
+                                                                    style="font-size: 14px; margin: 0; padding: 5px 0;">
+                                                                    Competency</p>
+                                                            </td>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="tableDataAIGen">
@@ -1033,6 +1038,7 @@
                     tableData += "<td>" + selectedItem.majoring + "</td>"; // Jurusan
                     tableData += "<td>" + selectedItem.exper + "</td>"; // Pengalaman Kerja
                     tableData += "<td style='text-align: left;'>" + selectedItem.last_position + "</td>"; // Posisi Terakhir
+                    tableData += "<td style='text-align: left;'>" + selectedItem.competency + "</td>"; // Kompetensi Posisi Terakhir
                     tableData += "</tr>";
 
                     target_candidate.push({
@@ -1042,7 +1048,8 @@
                         "Education_Level": selectedItem.levelEdu,
                         "Experience": selectedItem.exper,
                         "Study_Major": selectedItem.majoring,
-                        "Last_Position": selectedItem.last_position
+                        "Last_Position": selectedItem.last_position,
+                        "Competency": selectedItem.competency
                     })
 
                     targetCandidate.push(selectedItem)
@@ -1080,11 +1087,11 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data.length)
-                        console.log(data)
-                        console.log(data[0])
-                        console.log(data[1])
-                        console.log(target_candidate)
+                        console.log("data.length", data.length)
+                        console.log("data", data)
+                        console.log("data[0]", data[0])
+                        console.log("data[1]", data[1])
+                        console.log("target_candidate", target_candidate)
                         localStorage.setItem("recommended_candidate", JSON.stringify(data[0]))
                         localStorage.setItem("recommended_df", JSON.stringify(data[1]))
                         localStorage.setItem("target_candidate", JSON.stringify(targetCandidate))

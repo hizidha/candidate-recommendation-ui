@@ -62,11 +62,11 @@ def encodeExperience(exp):
 # Function to compute cosine similarity between two candidate vectors
 def compute_similarity(candidate1, candidate2, vectorizer):
     # Data target / Recommendation Input
-    text1 = " ".join([candidate1["Study Major"], candidate1["Last Position"]])
+    text1 = " ".join([candidate1["Study Major"], candidate1["Last Position"], candidate1["Competency"]])
     vector1 = np.array([candidate1["Age"], candidate1["Experience"], candidate1["Marital Status"], candidate1["Gender"], candidate1["Education Level"]])  # Add more parameters as needed
 
     # Data from dataset
-    text2 = " ".join([candidate2["Study_Major"], candidate2["Last_Position"]])
+    text2 = " ".join([candidate2["Study_Major"], candidate2["Last_Position"], candidate2["Competency"]])
     vector2 = np.array([candidate2["Age"], candidate2["Experience_en"], candidate2["Marital_Status_en"], candidate2["Gender_en"], candidate2["Education_Level_en"]])  # Add more parameters as needed
 
     # Compute TF-IDF vectors for text features
@@ -93,6 +93,7 @@ def recommend_candidates1(target_candidate, candidates_data, vectorizer):
             candidate["Experience"],
             candidate["Study_Major"],
             candidate["Last_Position"],
+            candidate["Competency"],
             str(index),
             ))
     similarities.sort(key=lambda x: x[0], reverse=True)
@@ -130,6 +131,7 @@ def recommend_candidates2(target_candidates, candidates_data, vectorizer):
             candidate_data["Experience"],
             candidate_data["Study_Major"],
             candidate_data["Last_Position"],
+            candidate_data["Competency"],
             str(index),
         ))
 

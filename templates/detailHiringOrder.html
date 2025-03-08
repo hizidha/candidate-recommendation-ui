@@ -434,6 +434,7 @@
                                                 <th rowspan="2">Institution</th>
                                                 <th rowspan="2">GPA</th>
                                                 <th rowspan="2">Last Position (Experience)</th>
+                                                <th rowspan="2">Competency</th>
                                                 <th rowspan="2">Expected Salary</th>
                                                 <th colspan="2"
                                                     style="text-align: center; padding: 0.25rem 0 0.25rem 0;">Psychology
@@ -522,6 +523,7 @@
                                                 <th rowspan="2">Institution</th>
                                                 <th rowspan="2">GPA</th>
                                                 <th rowspan="2">Last Position (Experience)</th>
+                                                <th rowspan="2">Competency</th>
                                                 <th rowspan="2">Expected Salary</th>
                                                 <th colspan="2"
                                                     style="text-align: center; padding: 0.25rem 0 0.25rem 0;">Psychology
@@ -711,6 +713,7 @@
                                 <th>Study Major</th>
                                 <th>Experience</th>
                                 <th>Last Position</th>
+                                <th>Competency</th>
                             </tr>
                         </thead>
                         <tbody id="dataTableRoleModel">
@@ -980,6 +983,7 @@
                 <td>${value.majoring}</td>
                 <td class="center">${value.exper}</td>
                 <td>${value.last_position}</td>
+                <td>${value.competency}</td>
             </tr>`
             })
             $("#dataTableRoleModel").html(targetRow)
@@ -1031,6 +1035,7 @@
                     <td>${dfCandidate[i].INSTITUTION}</td>
                     <td class="center">${dfCandidate[i].GPA}</td>
                     <td>${dfCandidate[i]["LAST EXPERIENCE POSITION"]} (${dfCandidate[i].EXPERIENCE})</td>
+                    <td>${dfCandidate[i]["COMPETENCY"]}</td>
                     <td class="center">Rp. ${dfCandidate[i].EXPECTED_SALARY},-</td>
                     <td class="center">${dfCandidate[i].PERSONALITY}</td>
                     <td class="center">${dfCandidate[i].INTELLIGENT}</td>
